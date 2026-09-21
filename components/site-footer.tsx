@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
+import { Logo } from "./logo";
 import { Container } from "./ui";
 
 export function SiteFooter({ edition }: { edition: Edition }) {
@@ -8,10 +9,8 @@ export function SiteFooter({ edition }: { edition: Edition }) {
     <footer className="bg-ink text-paper">
       <Container className="grid gap-12 py-16 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
-          <p className="font-display text-2xl font-semibold">
-            Startup Weekend Savona
-          </p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
+          <Logo className="h-14 w-auto sm:h-16" />
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
             Learn, think and build like a startup. Un evento organizzato da{" "}
             <a
               href={site.organizerUrl}

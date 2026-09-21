@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
+import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink } from "./ui";
 import { cn } from "@/lib/utils";
 
@@ -46,22 +47,8 @@ export function SiteHeader({ edition }: { edition: Edition }) {
           : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
-        <Link href="/" className="flex shrink-0 items-center gap-3 text-paper">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-blue text-white">
-            <span className="font-display text-[11px] font-bold leading-none tracking-tight">
-              SW
-            </span>
-          </span>
-          <span className="leading-none">
-            <span className="block font-display text-[12px] font-semibold tracking-[0.12em] whitespace-nowrap uppercase">
-              Startup Weekend
-            </span>
-            <span className="mt-1 block text-[10px] tracking-[0.28em] text-white/60 uppercase">
-              Savona
-            </span>
-          </span>
-        </Link>
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-8">
+        <Logo className="h-10 w-auto sm:h-12" priority />
 
         <nav className="hidden items-center gap-7 text-sm text-white/75 lg:flex">
           {links.map((link) => (
@@ -149,7 +136,7 @@ export function SiteHeader({ edition }: { edition: Edition }) {
       </div>
 
       {open ? (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-white/10 bg-ink px-5 py-8 lg:hidden">
+        <div className="fixed inset-x-0 top-[4.25rem] bottom-0 z-40 overflow-y-auto border-t border-white/10 bg-ink px-5 py-8 sm:top-20 lg:hidden">
           <div className="flex flex-col gap-5 text-paper">
             {links.map((link) => (
               <a

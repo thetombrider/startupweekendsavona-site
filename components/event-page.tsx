@@ -4,6 +4,7 @@ import type { Edition, Person } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
+import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
 
 export function EventPage({ edition }: { edition: Edition }) {
@@ -55,6 +56,7 @@ function Hero({
 
       <Container className="relative flex min-h-[100svh] flex-col justify-end pb-16 pt-28 sm:pb-20">
         <div className="max-w-4xl">
+          <Logo className="mb-8 h-14 w-auto sm:h-[4.5rem]" />
           {!edition.isCurrent ? (
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-blue uppercase">
               Archivio · Edizione {edition.year}
