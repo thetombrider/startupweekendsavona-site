@@ -26,7 +26,7 @@ export function Agenda({ days }: { days: AgendaDay[] }) {
             <span
               className={cn(
                 "mt-0.5 block text-[11px] leading-tight whitespace-nowrap",
-                item.id === active ? "text-lime" : "text-muted",
+                item.id === active ? "text-blue" : "text-muted",
               )}
             >
               {item.date}
@@ -41,9 +41,9 @@ export function Agenda({ days }: { days: AgendaDay[] }) {
             key={`${item.time}-${item.title}`}
             className="grid grid-cols-[88px_16px_1fr] items-start gap-4 py-3"
           >
-            <span className="pt-0.5 font-mono text-sm text-forest">{item.time}</span>
+            <span className="pt-0.5 font-mono text-sm text-blue">{item.time}</span>
             <span className="relative mt-2 flex justify-center">
-              <span className="h-2.5 w-2.5 rounded-full bg-lime ring-4 ring-lime/20" />
+              <span className="h-2.5 w-2.5 rounded-full bg-blue ring-4 ring-blue/20" />
               {index < day.items.length - 1 ? (
                 <span className="absolute top-3 h-8 w-px bg-line" />
               ) : null}

@@ -31,6 +31,9 @@ Optional env: none required. Ticket, brochure and map URLs live in `lib/content.
 ## Pages
 
 - `/` — edizione 2026
-- `/edizioni/2025` — archivio 2025
-- `/edizioni/2024` — archivio 2024
+- `/edizioni` — archivio
+- `/edizioni/2025` — archivio completo 2025 (giuria, mentors, premi, sponsor)
+- `/edizioni/2024` — archivio completo 2024
 - `/startup-weekend-2025` and `/startup-weekend-2024` redirect to the new archive routes
+
+Palette from the original WordPress site: black `#111111` / `#000000`, white `#ffffff`, accent blue `#27a8e0`.

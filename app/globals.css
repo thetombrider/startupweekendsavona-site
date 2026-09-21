@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #08110c;
-  --ink-soft: #1c2a21;
-  --paper: #f3efe4;
-  --paper-2: #e7e1d2;
-  --lime: #c8f04b;
-  --lime-deep: #9ccc2a;
-  --forest: #163524;
-  --muted: #667066;
-  --line: rgba(8, 17, 12, 0.12);
-  --glow: rgba(200, 240, 75, 0.28);
+  --ink: #111111;
+  --ink-soft: #000000;
+  --paper: #ffffff;
+  --paper-2: #f4f6f8;
+  --blue: #27a8e0;
+  --blue-deep: #1b8fc4;
+  --muted: #6b7280;
+  --line: rgba(17, 17, 17, 0.12);
+  --glow: rgba(39, 168, 224, 0.28);
 }
 
 @theme inline {
@@ -18,9 +17,8 @@
   --color-ink-soft: var(--ink-soft);
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
-  --color-lime: var(--lime);
-  --color-lime-deep: var(--lime-deep);
-  --color-forest: var(--forest);
+  --color-blue: var(--blue);
+  --color-blue-deep: var(--blue-deep);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --font-sans: var(--font-geist-sans);
@@ -45,8 +43,8 @@ body {
 }
 
 ::selection {
-  background: var(--lime);
-  color: var(--ink);
+  background: var(--blue);
+  color: #ffffff;
 }
 
 a {
@@ -92,19 +90,4 @@ img {
   to {
     transform: translateX(-50%);
   }
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.rise {
-  animation: rise 0.8s ease both;
 }

@@ -15,7 +15,7 @@ export function SiteFooter({ edition }: { edition: Edition }) {
             Learn, think and build like a startup. Un evento organizzato da{" "}
             <a
               href={site.organizerUrl}
-              className="text-lime hover:underline"
+              className="text-blue hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -30,7 +30,7 @@ export function SiteFooter({ edition }: { edition: Edition }) {
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-3 block text-sm hover:text-lime"
+            className="mt-3 block text-sm hover:text-blue"
           >
             {site.email}
           </a>
@@ -48,13 +48,16 @@ export function SiteFooter({ edition }: { edition: Edition }) {
             Edizioni passate
           </p>
           <div className="mt-3 flex flex-col gap-2 text-sm">
+            <Link href="/edizioni" className="hover:text-blue">
+              Tutte le edizioni
+            </Link>
             {pastEditions.map((item) => (
-              <Link key={item.year} href={item.slug} className="hover:text-lime">
+              <Link key={item.year} href={item.slug} className="hover:text-blue">
                 Edizione {item.year}
               </Link>
             ))}
             {!edition.isCurrent ? (
-              <Link href="/" className="text-lime">
+              <Link href="/" className="text-blue">
                 Torna all’edizione 2026
               </Link>
             ) : null}

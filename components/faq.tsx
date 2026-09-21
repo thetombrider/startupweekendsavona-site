@@ -24,7 +24,7 @@ export function Faq() {
               <span
                 className={cn(
                   "mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line text-lg leading-none",
-                  isOpen && "bg-ink text-lime",
+                  isOpen && "bg-ink text-blue",
                 )}
               >
                 {isOpen ? "–" : "+"}

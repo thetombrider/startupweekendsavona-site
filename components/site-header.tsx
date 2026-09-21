@@ -48,7 +48,7 @@ export function SiteHeader({ edition }: { edition: Edition }) {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-3 text-paper">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-lime text-ink">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-blue text-white">
             <span className="font-display text-[11px] font-bold leading-none tracking-tight">
               SW
             </span>
@@ -68,7 +68,7 @@ export function SiteHeader({ edition }: { edition: Edition }) {
             <a
               key={link.href}
               href={link.href}
-              className="transition-colors hover:text-lime"
+              className="transition-colors hover:text-blue"
             >
               {link.label}
             </a>
@@ -78,12 +78,21 @@ export function SiteHeader({ edition }: { edition: Edition }) {
             onMouseEnter={() => setEditionsOpen(true)}
             onMouseLeave={() => setEditionsOpen(false)}
           >
-            <button className="transition-colors hover:text-lime">
+            <Link
+              href="/edizioni"
+              className="transition-colors hover:text-blue"
+            >
               Edizioni
-            </button>
+            </Link>
             {editionsOpen ? (
               <div className="absolute top-full right-0 pt-3">
-                <div className="min-w-44 rounded-2xl border border-white/10 bg-ink-soft p-2 shadow-2xl">
+                <div className="min-w-44 rounded-2xl border border-white/10 bg-ink p-2 shadow-2xl">
+                  <Link
+                    href="/edizioni"
+                    className="block rounded-xl px-3 py-2 text-paper hover:bg-white/5"
+                  >
+                    Tutte le edizioni
+                  </Link>
                   <Link
                     href="/"
                     className="block rounded-xl px-3 py-2 text-paper hover:bg-white/5"
@@ -108,7 +117,7 @@ export function SiteHeader({ edition }: { edition: Edition }) {
         <div className="flex items-center gap-3">
           <ButtonLink
             href={ctaHref}
-            variant="lime"
+            variant="accent"
             className="hidden !px-5 !py-2 sm:inline-flex"
             external={edition.isCurrent}
           >
@@ -155,6 +164,9 @@ export function SiteHeader({ edition }: { edition: Edition }) {
             <p className="pt-2 text-xs tracking-[0.2em] text-white/40 uppercase">
               Edizioni passate
             </p>
+            <Link href="/edizioni" onClick={() => setOpen(false)}>
+              Tutte le edizioni
+            </Link>
             {pastEditions.map((item) => (
               <Link key={item.year} href={item.slug} onClick={() => setOpen(false)}>
                 Edizione {item.year}
@@ -162,7 +174,7 @@ export function SiteHeader({ edition }: { edition: Edition }) {
             ))}
             <ButtonLink
               href={ctaHref}
-              variant="lime"
+              variant="accent"
               className="mt-2"
               external={edition.isCurrent}
             >

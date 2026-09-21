@@ -56,11 +56,11 @@ function Hero({
       <Container className="relative flex min-h-[100svh] flex-col justify-end pb-16 pt-28 sm:pb-20">
         <div className="max-w-4xl">
           {!edition.isCurrent ? (
-            <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-lime uppercase">
+            <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-blue uppercase">
               Archivio · Edizione {edition.year}
             </p>
           ) : null}
-          <p className="text-xs tracking-[0.32em] text-lime uppercase">
+          <p className="text-xs tracking-[0.32em] text-blue uppercase">
             {edition.kicker}
           </p>
           <h1 className="font-display mt-4 max-w-4xl text-4xl leading-[0.95] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
@@ -70,7 +70,7 @@ function Hero({
             {edition.datesLabel} · {edition.venue}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={ticketHref} variant="lime" external={edition.isCurrent}>
+            <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
               {edition.ticketLabel}
               <ArrowIcon />
             </ButtonLink>
@@ -109,13 +109,13 @@ function Marquee() {
   ];
   const loop = [...items, ...items, ...items, ...items];
   return (
-    <div className="border-y border-ink/10 bg-lime py-3 text-ink">
+    <div className="border-y border-ink/10 bg-blue py-3 text-white">
       <div className="marquee">
         <div className="marquee-track font-display text-sm font-semibold tracking-[0.28em] uppercase">
           {loop.map((item, i) => (
             <span key={`${item}-${i}`} className="mx-6 inline-flex items-center gap-6">
               {item}
-              <span className="h-1.5 w-1.5 rounded-full bg-ink/40" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
             </span>
           ))}
         </div>
@@ -129,7 +129,7 @@ function About({ edition }: { edition: Edition }) {
     <section id="about" className="scroll-mt-24 py-24 sm:py-32">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
-          <p className="text-xs tracking-[0.28em] text-forest uppercase">
+          <p className="text-xs tracking-[0.28em] text-blue uppercase">
             Learn, Network, Startup
           </p>
           <h2 className="font-display mt-4 text-3xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
@@ -143,7 +143,7 @@ function About({ edition }: { edition: Edition }) {
           </p>
         </div>
         <div className="relative">
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-lime/40 blur-2xl" />
+          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-blue/40 blur-2xl" />
           <div className="overflow-hidden rounded-[1.75rem] border border-line">
             <Image
               src={edition.aboutImage}
@@ -174,7 +174,7 @@ function ValueProps() {
             key={item.index}
             className="rounded-[1.75rem] border border-line bg-white/60 p-7 transition hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <p className="font-mono text-xs tracking-[0.2em] text-forest">
+            <p className="font-mono text-xs tracking-[0.2em] text-blue">
               {item.index}
             </p>
             <h3 className="font-display mt-4 text-2xl font-semibold tracking-tight">
@@ -192,11 +192,11 @@ function ValueProps() {
 
 function StatsBand() {
   return (
-    <section className="mt-20 bg-forest py-14 text-paper">
+    <section className="mt-20 bg-ink py-14 text-paper">
       <Container className="grid grid-cols-2 gap-8 lg:grid-cols-4">
         {stats.map((item) => (
           <div key={item.label} className="text-center lg:text-left">
-            <p className="font-display text-4xl font-semibold tracking-tight text-lime sm:text-5xl">
+            <p className="font-display text-4xl font-semibold tracking-tight text-blue sm:text-5xl">
               {item.value}
             </p>
             <p className="mt-2 text-xs tracking-[0.18em] text-white/60 uppercase">
@@ -251,7 +251,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
           }
         />
         <div className="mt-16">
-          <h3 className="text-xs tracking-[0.24em] text-lime uppercase">Giuria</h3>
+          <h3 className="text-xs tracking-[0.24em] text-blue uppercase">Giuria</h3>
           <PeopleGrid
             people={edition.jury}
             comingSoon={edition.peopleComingSoon}
@@ -259,7 +259,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
           />
         </div>
         <div className="mt-16">
-          <h3 className="text-xs tracking-[0.24em] text-lime uppercase">Mentors</h3>
+          <h3 className="text-xs tracking-[0.24em] text-blue uppercase">Mentors</h3>
           <PeopleGrid
             people={edition.mentors}
             comingSoon={edition.peopleComingSoon}
@@ -342,7 +342,7 @@ function Facilitator({ person }: { person: Person }) {
           />
         </div>
         <div>
-          <p className="text-xs tracking-[0.24em] text-forest uppercase">
+          <p className="text-xs tracking-[0.24em] text-blue uppercase">
             Facilitatore
           </p>
           <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -380,8 +380,8 @@ function Prizes({ edition }: { edition: Edition }) {
             <p
               className={
                 tier.rank === 1
-                  ? "text-xs tracking-[0.22em] text-lime uppercase"
-                  : "text-xs tracking-[0.22em] text-forest uppercase"
+                  ? "text-xs tracking-[0.22em] text-blue uppercase"
+                  : "text-xs tracking-[0.22em] text-blue uppercase"
               }
             >
               {tier.place}
@@ -395,8 +395,8 @@ function Prizes({ edition }: { edition: Edition }) {
                     <span
                       className={
                         tier.rank === 1
-                          ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime"
-                          : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-forest"
+                          ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue"
+                          : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
                       }
                     />
                     <span>{item}</span>
@@ -419,17 +419,17 @@ function CountdownBand({
   ticketHref: string;
 }) {
   return (
-    <section className="bg-forest py-16 text-paper">
+    <section className="bg-ink py-16 text-paper">
       <Container className="grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
-          <p className="text-xs tracking-[0.24em] text-lime uppercase">
+          <p className="text-xs tracking-[0.24em] text-blue uppercase">
             {edition.datesLabel}
           </p>
           <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
             I posti sono limitati. Il Priamar no.
           </h2>
           <div className="mt-8">
-            <ButtonLink href={ticketHref} variant="lime" external>
+            <ButtonLink href={ticketHref} variant="accent" external>
               {edition.ticketLabel}
               <ArrowIcon />
             </ButtonLink>
@@ -479,7 +479,7 @@ function Sponsors({ edition }: { edition: Edition }) {
       <Container className="mt-14 space-y-14">
         {edition.sponsorGroups.map((group) => (
           <div key={group.title}>
-            <h3 className="text-center text-xs tracking-[0.24em] text-forest uppercase">
+            <h3 className="text-center text-xs tracking-[0.24em] text-blue uppercase">
               {group.title}
             </h3>
             {group.comingSoon ? (
@@ -532,7 +532,7 @@ function FinalCta({
     <section className="pb-24">
       <Container>
         <div className="overflow-hidden rounded-[2rem] bg-ink px-8 py-14 text-center text-paper">
-          <p className="text-xs tracking-[0.28em] text-lime uppercase">
+          <p className="text-xs tracking-[0.28em] text-blue uppercase">
             {edition.datesLabel}
           </p>
           <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-tight sm:text-5xl">
@@ -541,7 +541,7 @@ function FinalCta({
               : "La prossima edizione è nel 2026."}
           </h2>
           <div className="mt-8">
-            <ButtonLink href={ticketHref} variant="lime" external={edition.isCurrent}>
+            <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
               {edition.ticketLabel}
               <ArrowIcon />
             </ButtonLink>

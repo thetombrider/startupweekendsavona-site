@@ -32,7 +32,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mb-4 text-xs font-medium uppercase tracking-[0.28em]",
-            invert ? "text-lime" : "text-forest",
+            invert ? "text-blue" : "text-blue",
           )}
         >
           {eyebrow}
@@ -69,17 +69,18 @@ export function ButtonLink({
 }: {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "ghost" | "dark" | "lime";
+  variant?: "primary" | "ghost" | "dark" | "accent";
   className?: string;
   external?: boolean;
 }) {
   const styles = {
     primary:
-      "bg-lime text-ink hover:bg-white shadow-[0_0_0_1px_rgba(8,17,12,0.08)]",
-    lime: "bg-lime text-ink hover:brightness-110",
+      "bg-blue text-white hover:bg-blue-deep shadow-[0_0_0_1px_rgba(39,168,224,0.35)]",
+    accent:
+      "bg-blue text-white hover:bg-blue-deep",
     ghost:
-      "bg-transparent text-paper border border-white/20 hover:border-lime hover:text-lime",
-    dark: "bg-ink text-paper hover:bg-forest",
+      "bg-transparent text-paper border border-white/25 hover:border-blue hover:text-blue",
+    dark: "bg-ink text-paper hover:bg-black",
   } as const;
 
   return (

@@ -302,6 +302,8 @@ export const edition2026: Edition = {
   ],
   peopleComingSoon: true,
   prizesComingSoon: true,
+  recap:
+    "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar.",
 };
 
 export const edition2025: Edition = {
@@ -444,6 +446,7 @@ export const edition2025: Edition = {
       ],
     },
   ],
+  prizesNote: "And more are coming…",
   agenda: agenda2025,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
@@ -487,6 +490,8 @@ export const edition2025: Edition = {
       },
     ]),
   ],
+  recap:
+    "5–7 dicembre 2025 alla Fortezza del Priamar, con giuria Techstars, mentori dell’ecosistema ligure e premi da Women Lead, B4i, Talent Garden e IAG.",
 };
 
 export const edition2024: Edition = {
@@ -511,6 +516,7 @@ export const edition2024: Edition = {
     "/images/gallery/g7.jpg",
     "/images/gallery/g8.jpg",
     "/images/gallery/g9.jpg",
+    "/images/gallery/g10.jpg",
   ],
   jury: [
     {
@@ -631,6 +637,7 @@ export const edition2024: Edition = {
       ],
     },
   ],
+  prizesNote: "And more are coming…",
   agenda: agenda2024,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
@@ -674,6 +681,8 @@ export const edition2024: Edition = {
       { name: "Camera di Commercio", image: "/images/sponsors/camcom.jpg" },
     ]),
   ],
+  recap:
+    "La prima Startup Weekend Savona: 6–8 dicembre 2024 al Priamar, con giuria, mentori e premi da Startup Legal, Talent Garden, Startup Geeks e Genoa Ventures.",
 };
 
 export const editions = [edition2026, edition2025, edition2024];

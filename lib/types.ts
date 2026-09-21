@@ -59,4 +59,5 @@ export type Edition = {
   sponsorGroups: SponsorGroup[];
   peopleComingSoon?: boolean;
   prizesComingSoon?: boolean;
+  recap: string;
 };
