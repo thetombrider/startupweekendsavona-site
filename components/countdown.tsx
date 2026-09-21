@@ -6,13 +6,19 @@ function pad(n: number) {
   return String(n).padStart(2, "0");
 }
 
+let cachedNow = 0;
+
 function subscribe(onStoreChange: () => void) {
-  const id = window.setInterval(onStoreChange, 1000);
+  cachedNow = Date.now();
+  const id = window.setInterval(() => {
+    cachedNow = Date.now();
+    onStoreChange();
+  }, 1000);
   return () => window.clearInterval(id);
 }
 
 function getSnapshot() {
-  return Date.now();
+  return cachedNow;
 }
 
 function getServerSnapshot() {

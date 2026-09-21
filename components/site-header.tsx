@@ -19,6 +19,13 @@ export function SiteHeader({ edition }: { edition: Edition }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const links = [
     { href: `${edition.slug === "/" ? "" : edition.slug}#about`, label: "L’evento" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#agenda`, label: "Agenda" },
@@ -40,17 +47,17 @@ export function SiteHeader({ edition }: { edition: Edition }) {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8">
-        <Link href="/" className="flex items-center gap-3 text-paper">
+        <Link href="/" className="flex shrink-0 items-center gap-3 text-paper">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-lime text-ink">
             <span className="font-display text-[11px] font-bold leading-none tracking-tight">
               SW
             </span>
           </span>
-          <span className="leading-tight">
-            <span className="block font-display text-[13px] font-semibold tracking-[0.14em] uppercase">
+          <span className="leading-none">
+            <span className="block font-display text-[12px] font-semibold tracking-[0.12em] whitespace-nowrap uppercase">
               Startup Weekend
             </span>
-            <span className="block text-[11px] tracking-[0.22em] text-white/60 uppercase">
+            <span className="mt-1 block text-[10px] tracking-[0.28em] text-white/60 uppercase">
               Savona
             </span>
           </span>
@@ -133,14 +140,14 @@ export function SiteHeader({ edition }: { edition: Edition }) {
       </div>
 
       {open ? (
-        <div className="border-t border-white/10 bg-ink/95 px-5 py-6 backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-4 text-paper">
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-white/10 bg-ink px-5 py-8 lg:hidden">
+          <div className="flex flex-col gap-5 text-paper">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-lg"
+                className="font-display text-2xl"
               >
                 {link.label}
               </a>

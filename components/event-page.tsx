@@ -126,7 +126,7 @@ function Marquee() {
 
 function About({ edition }: { edition: Edition }) {
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" className="scroll-mt-24 py-24 sm:py-32">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <p className="text-xs tracking-[0.28em] text-forest uppercase">
@@ -217,7 +217,7 @@ function AgendaSection({
   ticketHref: string;
 }) {
   return (
-    <section id="agenda" className="py-24 sm:py-32">
+    <section id="agenda" className="scroll-mt-24 py-24 sm:py-32">
       <SectionHeading
         eyebrow="Agenda"
         title="54 ore, minuto per minuto"
@@ -238,7 +238,7 @@ function AgendaSection({
 
 function PeopleSection({ edition }: { edition: Edition }) {
   return (
-    <section id="people" className="bg-ink py-24 text-paper sm:py-32">
+    <section id="people" className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
       <Container>
         <SectionHeading
           invert
@@ -332,7 +332,7 @@ function Facilitator({ person }: { person: Person }) {
   return (
     <section className="bg-paper py-20">
       <Container className="grid items-center gap-10 rounded-[2rem] bg-white p-6 shadow-sm md:grid-cols-[280px_1fr] md:p-10">
-        <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-[1.5rem]">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[1.5rem]">
           <Image
             src={person.image}
             alt={person.name}
@@ -361,7 +361,7 @@ function Facilitator({ person }: { person: Person }) {
 
 function Prizes({ edition }: { edition: Edition }) {
   return (
-    <section id="premi" className="pb-24">
+    <section id="premi" className="scroll-mt-24 pb-24">
       <SectionHeading
         eyebrow="Premi"
         title="Cosa si porta a casa chi vince"
@@ -450,21 +450,17 @@ function Gallery({ edition }: { edition: Edition }) {
         body="Pitch nella fortezza, team fino a tardi, mentori al tavolo, aperitivo della domenica."
       />
       <Container className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3">
-        {edition.gallery.map((src, index) => (
+        {edition.gallery.map((src) => (
           <div
             key={src}
-            className={
-              index === 0
-                ? "relative col-span-2 aspect-[16/9] overflow-hidden rounded-[1.5rem] md:col-span-2"
-                : "relative aspect-[4/3] overflow-hidden rounded-[1.5rem]"
-            }
+            className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]"
           >
             <Image
               src={src}
-              alt=""
+              alt="Momenti di Startup Weekend Savona"
               fill
               className="object-cover"
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 768px) 33vw, 50vw"
             />
           </div>
         ))}
@@ -516,7 +512,7 @@ function Sponsors({ edition }: { edition: Edition }) {
 
 function FaqSection() {
   return (
-    <section id="faq" className="py-24 sm:py-32">
+    <section id="faq" className="scroll-mt-24 py-24 sm:py-32">
       <SectionHeading eyebrow="FAQ" title="Tutto quello che serve sapere" />
       <Container className="mt-12">
         <Faq />

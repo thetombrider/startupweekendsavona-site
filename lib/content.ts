@@ -324,6 +324,8 @@ export const edition2025: Edition = {
     "/images/gallery/g2.jpg",
     "/images/gallery/g3.jpg",
     "/images/gallery/g4.jpg",
+    "/images/gallery/hero.jpg",
+    "/images/gallery/g6.jpg",
   ],
   jury: [
     {
@@ -509,7 +511,6 @@ export const edition2024: Edition = {
     "/images/gallery/g7.jpg",
     "/images/gallery/g8.jpg",
     "/images/gallery/g9.jpg",
-    "/images/gallery/g10.jpg",
   ],
   jury: [
     {
