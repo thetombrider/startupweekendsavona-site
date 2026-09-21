@@ -8,7 +8,13 @@ import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink } from "./ui";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader({ edition }: { edition: Edition }) {
+export function SiteHeader({
+  edition,
+  overlay = false,
+}: {
+  edition: Edition;
+  overlay?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [editionsOpen, setEditionsOpen] = useState(false);
@@ -42,8 +48,8 @@ export function SiteHeader({ edition }: { edition: Edition }) {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled || open
-          ? "bg-ink/90 shadow-lg shadow-black/20 backdrop-blur-xl"
+        scrolled || open || !overlay
+          ? "bg-ink/95 shadow-lg shadow-black/20 backdrop-blur-xl"
           : "bg-transparent",
       )}
     >

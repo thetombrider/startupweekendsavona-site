@@ -6,7 +6,7 @@ import { edition2026 } from "@/lib/content";
 export default function Home() {
   return (
     <>
-      <SiteHeader edition={edition2026} />
+      <SiteHeader edition={edition2026} overlay />
       <EventPage edition={edition2026} />
       <SiteFooter edition={edition2026} />
     </>

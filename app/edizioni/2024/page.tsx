@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Edition2024Page() {
   return (
     <>
-      <SiteHeader edition={edition2024} />
+      <SiteHeader edition={edition2024} overlay />
       <EventPage edition={edition2024} />
       <SiteFooter edition={edition2024} />
     </>
