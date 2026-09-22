@@ -132,7 +132,7 @@ const agenda2026: AgendaDay[] = [
       { time: "20:30", title: "Votazione idee e pitch" },
       { time: "21:00", title: "Cena / Definizione dei team" },
       { time: "21:30", title: "Annuncio team e inizio lavori" },
-      { time: "21:40", title: "Kick-off speech by Pancrazio Auteri" },
+      { time: "21:40", title: "Kickoff Speech" },
       { time: "22:00", title: "Teamwork" },
       { time: "23:00", title: "Chiusura lavori" },
     ],
