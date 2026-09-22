@@ -349,7 +349,10 @@ export const edition2026: Edition = {
   agenda: agenda2026,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
-    group("Main Sponsors", [], true),
+    group("Main Sponsors", [
+      { name: "Azimut Capital Management", image: "/images/sponsors/azimut.png" },
+      { name: "Fondazione De Mari", image: "/images/sponsors/fmd.png" },
+    ]),
     group("Local Sponsors", [], true),
     group("Partners", [], true),
     group("Partners tecnici", [], true),
