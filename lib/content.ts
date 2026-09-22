@@ -336,7 +336,7 @@ export const edition2026: Edition = {
     {
       name: "Marco Franciosa",
       role: "Investor @ Italian Founders Fund",
-      image: "/images/people/franciosa.jpg",
+      image: "/images/people/franciosa-twinkly.jpg",
     },
   ],
   facilitator: facilitatorNox,
