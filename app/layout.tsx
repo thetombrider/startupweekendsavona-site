@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
 import { site } from "@/lib/content";
 import "./globals.css";
@@ -18,6 +18,10 @@ const syne = Syne({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
 });
+
+export const viewport: Viewport = {
+  themeColor: "#111111",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -50,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="it"
-      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full overscroll-none antialiased`}
     >
       <head>
         <script
@@ -59,7 +63,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           data-website-id="9bbf28ef-82c2-4895-8574-569a51398607"
         />
       </head>
-      <body className="min-h-full bg-paper font-sans text-ink">{children}</body>
+      <body className="min-h-full overscroll-none bg-paper font-sans text-ink">
+        {children}
+      </body>
     </html>
   );
 }
