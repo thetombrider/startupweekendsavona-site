@@ -39,14 +39,17 @@ export function Agenda({ days }: { days: AgendaDay[] }) {
         {day.items.map((item, index) => (
           <li
             key={`${item.time}-${item.title}`}
-            className="grid grid-cols-[88px_16px_1fr] items-start gap-4 py-3"
+            className="relative grid grid-cols-[88px_16px_1fr] items-start gap-4 py-3"
           >
             <span className="pt-0.5 font-mono text-sm text-blue">{item.time}</span>
+            {index < day.items.length - 1 ? (
+              <span
+                aria-hidden="true"
+                className="absolute top-[25px] -bottom-[25px] left-[112px] w-px -translate-x-1/2 bg-line"
+              />
+            ) : null}
             <span className="relative mt-2 flex justify-center">
-              <span className="h-2.5 w-2.5 rounded-full bg-blue ring-4 ring-blue/20" />
-              {index < day.items.length - 1 ? (
-                <span className="absolute top-3 h-8 w-px bg-line" />
-              ) : null}
+              <span className="relative z-10 h-2.5 w-2.5 rounded-full bg-blue ring-4 ring-blue/20" />
             </span>
             <span className="text-base text-ink-soft">{item.title}</span>
           </li>
