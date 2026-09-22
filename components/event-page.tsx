@@ -429,7 +429,7 @@ function CountdownBand({
             {edition.datesLabel}
           </p>
           <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
-            I posti sono limitati. Il Priamar no.
+            I posti sono limitati. Affrettati!
           </h2>
           <div className="mt-8">
             <ButtonLink href={ticketHref} variant="accent" external>
