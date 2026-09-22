@@ -132,7 +132,7 @@ const agenda2026: AgendaDay[] = [
       { time: "20:30", title: "Votazione idee e pitch" },
       { time: "21:00", title: "Cena / Definizione dei team" },
       { time: "21:30", title: "Annuncio team e inizio lavori" },
-      { time: "21:40", title: "Kick-off speech by Pancrazio Auteri" },
+      { time: "21:40", title: "Kickoff Speech" },
       { time: "22:00", title: "Teamwork" },
       { time: "23:00", title: "Chiusura lavori" },
     ],
@@ -185,6 +185,14 @@ const agenda2026: AgendaDay[] = [
 const agenda2025: AgendaDay[] = agenda2026.map((day, i) => ({
   ...day,
   date: ["5 dicembre", "6 dicembre", "7 dicembre"][i],
+  items:
+    day.id === "ven"
+      ? day.items.map((item) =>
+          item.time === "21:40"
+            ? { ...item, title: "Kick-off speech by Pancrazio Auteri" }
+            : item,
+        )
+      : day.items,
 }));
 
 const agenda2024: AgendaDay[] = [
