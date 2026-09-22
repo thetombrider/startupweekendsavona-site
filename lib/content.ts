@@ -185,6 +185,14 @@ const agenda2026: AgendaDay[] = [
 const agenda2025: AgendaDay[] = agenda2026.map((day, i) => ({
   ...day,
   date: ["5 dicembre", "6 dicembre", "7 dicembre"][i],
+  items:
+    day.id === "ven"
+      ? day.items.map((item) =>
+          item.time === "21:40"
+            ? { ...item, title: "Kick-off speech by Pancrazio Auteri" }
+            : item,
+        )
+      : day.items,
 }));
 
 const agenda2024: AgendaDay[] = [
