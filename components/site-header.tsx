@@ -120,7 +120,9 @@ export function SiteHeader({
           <button
             className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-paper lg:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Apri menu"
+            aria-label={open ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
           >
             <span className="sr-only">Menu</span>
             <div className="space-y-1.5">
@@ -142,7 +144,10 @@ export function SiteHeader({
       </div>
 
       {open ? (
-        <div className="fixed inset-x-0 top-[4.25rem] bottom-0 z-40 overflow-y-auto border-t border-white/10 bg-ink px-5 py-8 sm:top-20 lg:hidden">
+        <div
+          id="mobile-menu"
+          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-4.25rem)] overflow-y-auto border-t border-white/10 bg-ink px-5 py-8 sm:h-[calc(100dvh-5rem)] lg:hidden"
+        >
           <div className="flex flex-col gap-5 text-paper">
             {links.map((link) => (
               <a
