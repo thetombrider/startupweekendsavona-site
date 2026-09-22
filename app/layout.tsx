@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
+import Script from "next/script";
 import { site } from "@/lib/content";
 import "./globals.css";
 
@@ -52,6 +53,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="it"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
     >
+      <head>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="9bbf28ef-82c2-4895-8574-569a51398607"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className="min-h-full bg-paper font-sans text-ink">{children}</body>
     </html>
   );
