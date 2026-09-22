@@ -320,7 +320,7 @@ export const edition2026: Edition = {
     },
     {
       name: "Pietro Galimberti",
-      role: "CEO @ Plino.ai",
+      role: "Account Executive @ Compri",
       image: "/images/people/galimberti.jpg",
     },
     {
