@@ -290,8 +290,55 @@ export const edition2026: Edition = {
     "/images/gallery/g11.jpg",
     "/images/gallery/g12.jpg",
   ],
-  jury: [],
-  mentors: [],
+  jury: [
+    {
+      name: "Francesco Lato",
+      role: "Talent Investor",
+      image: "/images/people/lato.jpg",
+    },
+    {
+      name: "Pietro Mondini",
+      role: "CEO @ Vesper Holding",
+      image: "/images/people/mondini.jpg",
+    },
+    {
+      name: "Alberto Clavarino",
+      role: "Presidente @ Fondazione Genova Startup ETS",
+      image: "/images/people/clavarino.jpg",
+    },
+    {
+      name: "Francesco Inguscio",
+      role: "CEO @ Rainmakers",
+      image: "/images/people/inguscio.jpg",
+    },
+  ],
+  mentors: [
+    {
+      name: "Simone Martinelli",
+      role: "HiFounders",
+      image: "/images/people/martinelli.webp",
+    },
+    {
+      name: "Pietro Galimberti",
+      role: "CEO @ Plino.ai",
+      image: "/images/people/galimberti.jpg",
+    },
+    {
+      name: "Mattia Zarrelli",
+      role: "Founder @ Gyver",
+      image: "/images/people/zarrelli-2025.jpeg",
+    },
+    {
+      name: "Davide Giacomini",
+      role: "Venture Architect @ Kakashi Venture Accelerator",
+      image: "/images/people/giacomini.jpg",
+    },
+    {
+      name: "Marco Franciosa",
+      role: "Investor @ Italian Founders Fund",
+      image: "/images/people/franciosa.jpg",
+    },
+  ],
   facilitator: facilitatorNox,
   prizes: [
     { place: "Primo classificato", rank: 1, items: [] },
@@ -308,7 +355,7 @@ export const edition2026: Edition = {
     group("Partners tecnici", [], true),
     group("Patrocinio", patrocinioBase),
   ],
-  peopleComingSoon: true,
+  peopleComingSoon: false,
   prizesComingSoon: true,
   recap:
     "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar.",
