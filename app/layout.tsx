@@ -54,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="it"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full overscroll-none antialiased`}
     >
       <head>
