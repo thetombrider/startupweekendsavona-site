@@ -40,12 +40,13 @@ function Hero({
   ticketHref: string;
 }) {
   return (
-    <section className="grain relative isolate min-h-[100svh] overflow-hidden bg-ink text-paper">
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-ink text-paper">
       <Image
         src={edition.heroImage}
         alt="Partecipanti di Startup Weekend Savona"
         fill
         priority
+        quality={85}
         className="object-cover object-center opacity-40"
         sizes="100vw"
       />
