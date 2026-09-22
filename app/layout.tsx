@@ -56,6 +56,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="it"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full overscroll-none antialiased`}
     >
+      <head>
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="9bbf28ef-82c2-4895-8574-569a51398607"
+        />
+      </head>
       <body className="min-h-full overscroll-none bg-paper font-sans text-ink">
         {children}
       </body>
