@@ -80,7 +80,7 @@ export function ButtonLink({
       "bg-blue text-white hover:bg-blue-deep",
     ghost:
       "bg-transparent text-paper border border-white/25 hover:border-blue hover:text-blue",
-    dark: "bg-ink text-paper hover:bg-black",
+    dark: "bg-ink text-white hover:bg-black",
   } as const;
 
   return (

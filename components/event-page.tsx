@@ -228,7 +228,7 @@ function AgendaSection({
       <Container className="mt-12">
         <Agenda days={edition.agenda} />
         <div className="mt-12 flex justify-center">
-          <ButtonLink href={ticketHref} variant="dark" external={edition.isCurrent}>
+          <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
             {edition.ticketLabel}
             <ArrowIcon />
           </ButtonLink>
