@@ -268,7 +268,7 @@ export const edition2026: Edition = {
   datesShort: "4-5-6 Dicembre 2026",
   venue: "Fortezza del Priamar, Savona",
   startAt: "2026-12-04T18:00:00+01:00",
-  ticketUrl: "https://dub.sh/sws25sitosws",
+  ticketUrl: "https://dub.sh/sws26site",
   ticketLabel: "Compra il tuo biglietto",
   brochureUrl,
   mapUrl,
