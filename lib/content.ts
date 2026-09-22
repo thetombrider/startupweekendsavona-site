@@ -272,7 +272,7 @@ export const edition2026: Edition = {
   ticketLabel: "Compra il tuo biglietto",
   brochureUrl,
   mapUrl,
-  heroImage: "/images/gallery/hero.jpg",
+  heroImage: "/images/gallery/hero-2026.jpg",
   aboutImage: "/images/gallery/g1.jpg",
   gallery: [
     "/images/gallery/g1.jpg",
