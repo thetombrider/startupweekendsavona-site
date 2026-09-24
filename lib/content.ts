@@ -379,6 +379,7 @@ export const edition2025: Edition = {
   mapUrl,
   heroImage: "/images/gallery/g1.jpg",
   aboutImage: "/images/gallery/g2.jpg",
+  recapVideoUrl: "https://www.youtube.com/embed/ODC_vrYyYK0",
   gallery: [
     "/images/gallery/g1.jpg",
     "/images/gallery/g2.jpg",
@@ -567,6 +568,7 @@ export const edition2024: Edition = {
   mapUrl,
   heroImage: "/images/gallery/hero.jpg",
   aboutImage: "/images/gallery/g7.jpg",
+  recapVideoUrl: "https://www.youtube.com/embed/ZrKLskbTd1M",
   gallery: [
     "/images/gallery/hero.jpg",
     "/images/gallery/g5.jpg",

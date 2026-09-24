@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { aboutCopy, stats, valueProps } from "@/lib/content";
+import { aboutCopy, pastEditions, stats, valueProps } from "@/lib/content";
 import type { Edition, Person } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
@@ -25,6 +25,8 @@ export function EventPage({ edition }: { edition: Edition }) {
         <CountdownBand edition={edition} ticketHref={ticketHref} />
       ) : null}
       <Gallery edition={edition} />
+      <VideoRecap edition={edition} />
+      <PastEditionRecap edition={edition} />
       <Sponsors edition={edition} />
       <FaqSection />
       <FinalCta edition={edition} ticketHref={ticketHref} />
@@ -467,6 +469,72 @@ function Gallery({ edition }: { edition: Edition }) {
             />
           </div>
         ))}
+      </Container>
+    </section>
+  );
+}
+
+function VideoRecap({ edition }: { edition: Edition }) {
+  if (!edition.recapVideoUrl) return null;
+
+  return (
+    <section id="video" className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
+      <SectionHeading
+        invert
+        eyebrow="Video recap"
+        title={`Rivivi Startup Weekend Savona ${edition.year}`}
+        body="Tre giorni di idee, team, mentoring e pitch alla Fortezza del Priamar."
+      />
+      <Container className="mt-12">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
+          <div className="aspect-video">
+            <iframe
+              className="h-full w-full"
+              src={edition.recapVideoUrl}
+              title={`Video recap Startup Weekend Savona ${edition.year}`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </div>
+        <p className="mt-5 text-center text-sm text-white/50">
+          Video ufficiale dell’edizione {edition.year}
+        </p>
+      </Container>
+    </section>
+  );
+}
+
+function PastEditionRecap({ edition }: { edition: Edition }) {
+  if (!edition.isCurrent) return null;
+
+  const latestPastEdition = pastEditions[0];
+
+  return (
+    <section className="pb-24">
+      <Container>
+        <div className="flex flex-col items-start justify-between gap-6 rounded-[2rem] border border-line bg-white p-8 sm:flex-row sm:items-center sm:p-10">
+          <div>
+            <p className="text-xs tracking-[0.24em] text-blue uppercase">
+              Edizione {latestPastEdition.year}
+            </p>
+            <h2 className="font-display mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+              Hai perso l’edizione {latestPastEdition.year}?
+            </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+              Rivivi il weekend e scopri cosa succede a Startup Weekend Savona.
+            </p>
+          </div>
+          <ButtonLink
+            href={`${latestPastEdition.slug}#video`}
+            variant="dark"
+            className="!bg-ink !text-white hover:!bg-black"
+          >
+            Guarda il recap
+            <ArrowIcon />
+          </ButtonLink>
+        </div>
       </Container>
     </section>
   );
