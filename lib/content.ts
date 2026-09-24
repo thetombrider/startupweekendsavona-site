@@ -568,6 +568,7 @@ export const edition2024: Edition = {
   mapUrl,
   heroImage: "/images/gallery/hero.jpg",
   aboutImage: "/images/gallery/g7.jpg",
+  recapVideoUrl: "https://www.youtube.com/embed/ZrKLskbTd1M",
   gallery: [
     "/images/gallery/hero.jpg",
     "/images/gallery/g5.jpg",
