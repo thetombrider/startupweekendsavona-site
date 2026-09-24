@@ -355,7 +355,9 @@ export const edition2026: Edition = {
     ]),
     group("Local Sponsors", [], true),
     group("Partners", [], true),
-    group("Partners tecnici", [], true),
+    group("Partners tecnici", [
+      { name: "Startup Legal", image: "/images/sponsors/startup-legal.png" },
+    ]),
     group("Patrocinio", patrocinioBase),
   ],
   peopleComingSoon: false,
