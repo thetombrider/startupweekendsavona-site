@@ -526,7 +526,11 @@ function PastEditionRecap({ edition }: { edition: Edition }) {
               Rivivi il weekend e scopri cosa succede a Startup Weekend Savona.
             </p>
           </div>
-          <ButtonLink href={`${latestPastEdition.slug}#video`} variant="dark">
+          <ButtonLink
+            href={`${latestPastEdition.slug}#video`}
+            variant="dark"
+            className="!bg-ink !text-white hover:!bg-black"
+          >
             Guarda il recap
             <ArrowIcon />
           </ButtonLink>
