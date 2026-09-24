@@ -25,6 +25,7 @@ export function EventPage({ edition }: { edition: Edition }) {
         <CountdownBand edition={edition} ticketHref={ticketHref} />
       ) : null}
       <Gallery edition={edition} />
+      <VideoRecap edition={edition} />
       <Sponsors edition={edition} />
       <FaqSection />
       <FinalCta edition={edition} ticketHref={ticketHref} />
@@ -467,6 +468,38 @@ function Gallery({ edition }: { edition: Edition }) {
             />
           </div>
         ))}
+      </Container>
+    </section>
+  );
+}
+
+function VideoRecap({ edition }: { edition: Edition }) {
+  if (!edition.recapVideoUrl) return null;
+
+  return (
+    <section id="video" className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
+      <SectionHeading
+        invert
+        eyebrow="Video recap"
+        title={`Rivivi Startup Weekend Savona ${edition.year}`}
+        body="Tre giorni di idee, team, mentoring e pitch alla Fortezza del Priamar."
+      />
+      <Container className="mt-12">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
+          <div className="aspect-video">
+            <iframe
+              className="h-full w-full"
+              src={edition.recapVideoUrl}
+              title={`Video recap Startup Weekend Savona ${edition.year}`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </div>
+        <p className="mt-5 text-center text-sm text-white/50">
+          Video ufficiale dell’edizione {edition.year}
+        </p>
       </Container>
     </section>
   );

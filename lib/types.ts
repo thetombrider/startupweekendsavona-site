@@ -50,6 +50,7 @@ export type Edition = {
   heroImage: string;
   aboutImage: string;
   gallery: string[];
+  recapVideoUrl?: string;
   jury: Person[];
   mentors: Person[];
   facilitator: Person;
