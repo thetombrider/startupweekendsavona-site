@@ -148,7 +148,7 @@ const agenda2026: AgendaDay[] = [
       { time: "09:45", title: "Presentazione idee ai mentori" },
       { time: "11:45", title: "Mentoring individuale" },
       { time: "13:00", title: "Pranzo" },
-      { time: "14:00", title: "Workshop — Vibe Coding with Lovable" },
+      { time: "14:00", title: "Workshop - Startup Legal" },
       {
         time: "14:30",
         title: "Presentazione idee ai mentori + attività di validazione",
