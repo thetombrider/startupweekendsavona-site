@@ -260,6 +260,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
           <PeopleGrid
             people={edition.jury}
             comingSoon={edition.peopleComingSoon}
+            moreComing={edition.peopleMoreComing}
             count={4}
           />
         </div>
@@ -268,6 +269,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
           <PeopleGrid
             people={edition.mentors}
             comingSoon={edition.peopleComingSoon}
+            moreComing={edition.peopleMoreComing}
             count={8}
           />
         </div>
@@ -276,13 +278,28 @@ function PeopleSection({ edition }: { edition: Edition }) {
   );
 }
 
+function MoreComingCard() {
+  return (
+    <article className="aspect-[4/5] rounded-3xl border border-dashed border-white/15 bg-white/5 p-5">
+      <div className="flex h-full flex-col justify-end">
+        <p className="text-xs tracking-[0.2em] text-white/40 uppercase">
+          In arrivo
+        </p>
+        <p className="mt-1 font-display text-lg">& more coming</p>
+      </div>
+    </article>
+  );
+}
+
 function PeopleGrid({
   people,
   comingSoon,
+  moreComing,
   count,
 }: {
   people: Person[];
   comingSoon?: boolean;
+  moreComing?: boolean;
   count: number;
 }) {
   if (comingSoon) {
@@ -329,6 +346,7 @@ function PeopleGrid({
           </div>
         </article>
       ))}
+      {moreComing ? <MoreComingCard /> : null}
     </div>
   );
 }
