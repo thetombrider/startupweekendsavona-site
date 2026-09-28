@@ -59,6 +59,7 @@ export type Edition = {
   agenda: AgendaDay[];
   sponsorGroups: SponsorGroup[];
   peopleComingSoon?: boolean;
+  peopleMoreComing?: boolean;
   prizesComingSoon?: boolean;
   recap: string;
 };

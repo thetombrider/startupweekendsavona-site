@@ -361,6 +361,7 @@ export const edition2026: Edition = {
     group("Patrocinio", patrocinioBase),
   ],
   peopleComingSoon: false,
+  peopleMoreComing: true,
   prizesComingSoon: true,
   recap:
     "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar.",
