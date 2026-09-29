@@ -385,6 +385,10 @@ export const edition2026: Edition = {
         name: "Fondazione Genova Startup ETS",
         image: "/images/sponsors/genova-startup.png",
       },
+      {
+        name: "Francesco Gruner",
+        image: "/images/sponsors/francesco-gruner.png",
+      },
     ]),
     group("Partners tecnici", [
       { name: "Startup Legal", image: "/images/sponsors/startup-legal.png" },
