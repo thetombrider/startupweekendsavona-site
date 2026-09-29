@@ -341,11 +341,36 @@ export const edition2026: Edition = {
   ],
   facilitator: facilitatorNox,
   prizes: [
-    { place: "Primo classificato", rank: 1, items: [] },
-    { place: "Secondo classificato", rank: 2, items: [] },
-    { place: "Terzo classificato", rank: 3, items: [] },
+    {
+      place: "Primo classificato",
+      rank: 1,
+      items: [
+        "Supporto legale gratuito alla costituzione della startup by Startup Legal",
+        "4h di consulenza AI by Francesco Gruner",
+        "30 giorni di ingresso gratuito a Talent Garden Genova",
+        "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
+      ],
+    },
+    {
+      place: "Secondo classificato",
+      rank: 2,
+      items: [
+        "Supporto legale gratuito alla costituzione della startup by Startup Legal",
+        "3h di consulenza AI by Francesco Gruner",
+        "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
+      ],
+    },
+    {
+      place: "Terzo classificato",
+      rank: 3,
+      items: [
+        "Supporto legale gratuito alla costituzione della startup by Startup Legal",
+        "2h di consulenza AI by Francesco Gruner",
+        "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
+      ],
+    },
   ],
-  prizesNote: "I premi dell’edizione 2026 saranno annunciati a breve.",
+  prizesNote: "And more are coming…",
   agenda: agenda2026,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
@@ -354,7 +379,17 @@ export const edition2026: Edition = {
       { name: "Fondazione De Mari", image: "/images/sponsors/fmd.png" },
     ]),
     group("Local Sponsors", [], true),
-    group("Partners", [], true),
+    group("Partners", [
+      { name: "Talent Garden", image: "/images/sponsors/tag.svg" },
+      {
+        name: "Fondazione Genova Startup ETS",
+        image: "/images/sponsors/genova-startup.png",
+      },
+      {
+        name: "Francesco Gruner",
+        image: "/images/sponsors/francesco-gruner.png",
+      },
+    ]),
     group("Partners tecnici", [
       { name: "Startup Legal", image: "/images/sponsors/startup-legal.png" },
     ]),
@@ -362,9 +397,8 @@ export const edition2026: Edition = {
   ],
   peopleComingSoon: false,
   peopleMoreComing: true,
-  prizesComingSoon: true,
   recap:
-    "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar.",
+    "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar, con premi da Startup Legal, Talent Garden, Francesco Gruner e Fondazione Genova Startup ETS.",
 };
 
 export const edition2025: Edition = {
