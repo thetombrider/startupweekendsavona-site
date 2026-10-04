@@ -356,6 +356,7 @@ export const edition2026: Edition = {
       rank: 2,
       items: [
         "Supporto legale gratuito alla costituzione della startup by Startup Legal",
+        "2h di consulenza societaria by Bird & Bird",
         "3h di consulenza AI by Francesco Gruner",
         "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
       ],
@@ -398,7 +399,7 @@ export const edition2026: Edition = {
   peopleComingSoon: false,
   peopleMoreComing: true,
   recap:
-    "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar, con premi da Startup Legal, Talent Garden, Francesco Gruner e Fondazione Genova Startup ETS.",
+    "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar, con premi da Startup Legal, Bird & Bird, Talent Garden, Francesco Gruner e Fondazione Genova Startup ETS.",
 };
 
 export const edition2025: Edition = {
