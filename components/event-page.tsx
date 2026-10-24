@@ -52,7 +52,11 @@ export function EventPage({ edition }: { edition: Edition }) {
       <PeopleSection edition={edition} />
       <Facilitator person={edition.facilitator} />
       <AgendaSection edition={edition} ticketHref={ticketHref} />
-      <Gallery edition={edition} />
+      {edition.moments ? (
+        <Moments edition={edition} ticketHref={ticketHref} />
+      ) : (
+        <Gallery edition={edition} />
+      )}
       <VideoRecap edition={edition} />
       <PastEditionRecap edition={edition} />
       <Press />
@@ -751,6 +755,76 @@ function Prizes({ edition }: { edition: Edition }) {
           </article>
         ))}
       </Container>
+    </section>
+  );
+}
+
+function Moments({
+  edition,
+  ticketHref,
+}: {
+  edition: Edition;
+  ticketHref: string;
+}) {
+  return (
+    <section className="py-24 sm:py-32">
+      <SectionHeading
+        eyebrow="Le edizioni passate"
+        title="Due edizioni, 80+ persone, una startup sul mercato"
+        body="Studenti, sviluppatori, designer e professionisti: c’è chi arriva con un’idea e chi senza."
+      />
+      <Container className="mt-12 grid gap-3 lg:grid-cols-[minmax(0,5fr)_minmax(0,12fr)]">
+        {edition.reelUrl ? (
+          <div className="order-last mx-auto mt-3 aspect-[9/16] w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] bg-ink lg:order-none lg:mt-0 lg:aspect-auto lg:h-full lg:max-w-none">
+            <iframe
+              className="h-full w-full"
+              src={edition.reelUrl}
+              title="Reel Startup Weekend Savona"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        ) : null}
+        <div className="grid grid-cols-2 gap-3">
+          {edition.moments?.map((moment) => (
+            <figure
+              key={moment.image}
+              className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]"
+            >
+              <Image
+                src={moment.image}
+                alt={moment.caption}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 35vw, 50vw"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 pt-10 sm:p-5 sm:pt-14">
+                <span className="block text-[10px] font-semibold tracking-[0.2em] text-blue uppercase sm:text-xs">
+                  {moment.when}
+                </span>
+                <span className="font-display mt-1 block text-sm font-semibold text-white sm:text-xl">
+                  {moment.caption}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Container>
+      {edition.isCurrent ? (
+        <div className="mt-10 flex justify-center">
+          <ButtonLink
+            href={ticketHref}
+            variant="accent"
+            external
+            trackEvent={TICKET_EVENT}
+            trackPosition="moments"
+          >
+            Vieni alla prossima edizione
+            <ArrowIcon />
+          </ButtonLink>
+        </div>
+      ) : null}
     </section>
   );
 }

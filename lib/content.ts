@@ -401,6 +401,29 @@ export const edition2026: Edition = {
     "/images/gallery/g11.jpg",
     "/images/gallery/g12.jpg",
   ],
+  moments: [
+    {
+      image: "/images/gallery/g2.jpg",
+      when: "Venerdì",
+      caption: "Pitch da 60 secondi",
+    },
+    {
+      image: "/images/gallery/g5.jpg",
+      when: "Sabato",
+      caption: "Si lavora in team",
+    },
+    {
+      image: "/images/gallery/g12.jpg",
+      when: "Domenica",
+      caption: "Il pitch finale",
+    },
+    {
+      image: "/images/gallery/hero.jpg",
+      when: "Domenica",
+      caption: "Aperitivo finale",
+    },
+  ],
+  reelUrl: "https://www.youtube-nocookie.com/embed/98QOWS6iXyI",
   jury: [
     {
       name: "Francesco Lato",
