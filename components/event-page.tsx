@@ -80,27 +80,34 @@ function Hero({
   fallbackNow: number;
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-ink text-paper">
-      <div className="pointer-events-none absolute -top-24 right-[-8%] font-display text-[38vw] leading-none font-bold text-white/[0.03] select-none">
+    <section className="relative isolate overflow-hidden bg-paper text-ink">
+      <div className="pointer-events-none absolute -top-24 right-[-8%] font-display text-[38vw] leading-none font-bold text-ink/[0.03] select-none">
         54
       </div>
 
       <Container className="relative grid items-center gap-10 pt-28 pb-16 sm:pb-20 lg:min-h-[100svh] lg:pt-24 lg:pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <div>
           {!edition.isCurrent ? (
-            <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-blue uppercase">
+            <p className="mb-5 inline-flex rounded-full border border-line bg-paper-2 px-3 py-1 text-xs tracking-[0.2em] text-blue-deep uppercase">
               Archivio · Edizione {edition.year}
             </p>
           ) : null}
-          <p className="text-xs tracking-[0.32em] text-blue uppercase">
+          <p className="text-xs font-semibold tracking-[0.32em] text-blue-deep uppercase">
             {edition.kicker}
           </p>
           <h1 className="font-display mt-4 text-4xl leading-[0.95] font-semibold tracking-tight sm:text-6xl xl:text-7xl">
             {edition.headline}
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-white/75">
-            {edition.datesLabel} · {edition.venue}
+          <p className="mt-6 text-sm font-semibold tracking-[0.16em] text-ink uppercase">
+            {edition.datesLabel}
+            <span className="mx-2 text-blue">•</span>
+            <span className="text-muted">{edition.venue}</span>
           </p>
+          {edition.lead ? (
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+              {edition.lead}
+            </p>
+          ) : null}
           {edition.isCurrent && edition.tickets ? (
             <div className="mt-8">
               <PriceUrgency
@@ -117,7 +124,7 @@ function Hero({
             </div>
           )}
           {edition.isCurrent && !edition.tickets ? (
-            <div className="mt-14 max-w-xl">
+            <div className="mt-10 max-w-xl rounded-[1.75rem] bg-ink p-5 sm:p-7">
               <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
                 Manca
               </p>

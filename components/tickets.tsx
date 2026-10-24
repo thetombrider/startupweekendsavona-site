@@ -217,7 +217,7 @@ export function PriceUrgency({
 
   if (!current && !next) {
     return (
-      <div className="max-w-xl">
+      <div className="max-w-2xl rounded-[1.75rem] bg-ink p-5 sm:p-7">
         <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
           Manca
         </p>
@@ -231,7 +231,7 @@ export function PriceUrgency({
   const rising = current && next && nextFollowsCurrent ? next : undefined;
 
   return (
-    <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink/70 p-5 shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] backdrop-blur-md sm:p-7">
+    <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink p-5 shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] sm:p-7">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>
           <p className="inline-flex items-center gap-2 text-xs tracking-[0.24em] text-blue uppercase">

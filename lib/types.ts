@@ -48,6 +48,7 @@ export type Edition = {
   isCurrent: boolean;
   kicker: string;
   headline: string;
+  lead?: string;
   datesLabel: string;
   datesShort: string;
   venue: string;

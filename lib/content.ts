@@ -381,6 +381,7 @@ export const edition2026: Edition = {
   isCurrent: true,
   kicker: "Learn. Network. Startup.",
   headline: "Realizza la tua startup in 54 ore",
+  lead: "54 ore per trasformare un’idea in startup, insieme a sviluppatori, designer, mentor e investitori.",
   datesLabel: "4–6 dicembre 2026",
   datesShort: "4-5-6 Dicembre 2026",
   venue: "Fortezza del Priamar, Savona",
