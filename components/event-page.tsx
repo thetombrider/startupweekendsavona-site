@@ -35,7 +35,7 @@ export function EventPage({ edition }: { edition: Edition }) {
         fallbackNow={fallbackNow}
       />
       <Marquee />
-      <About edition={edition} />
+      <About edition={edition} ticketHref={ticketHref} />
       <ValueProps />
       <StatsBand />
       <HowItWorks />
@@ -204,7 +204,13 @@ function Marquee() {
   );
 }
 
-function About({ edition }: { edition: Edition }) {
+function About({
+  edition,
+  ticketHref,
+}: {
+  edition: Edition;
+  ticketHref: string;
+}) {
   return (
     <section id="about" className="scroll-mt-24 py-24 sm:py-32">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -218,10 +224,19 @@ function About({ edition }: { edition: Edition }) {
           <p className="mt-6 text-base leading-relaxed text-muted sm:text-lg">
             {aboutCopy}
           </p>
-          <p className="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
-            Sarai tu il prossimo startupper ad avviare la propria attività?
-          </p>
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 text-sm font-semibold">
+            {edition.isCurrent ? (
+              <ButtonLink
+                href={ticketHref}
+                variant="accent"
+                external
+                trackEvent={TICKET_EVENT}
+                trackPosition="about"
+              >
+                Compra il biglietto
+                <ArrowIcon />
+              </ButtonLink>
+            ) : null}
             <a
               href={edition.brochureUrl}
               target="_blank"
@@ -272,15 +287,15 @@ function ValueProps() {
         {valueProps.map((item) => (
           <article
             key={item.index}
-            className="rounded-[1.75rem] border border-line bg-white/60 p-7 transition hover:-translate-y-0.5 hover:shadow-lg"
+            className="rounded-[1.75rem] border border-line bg-white/60 p-6 transition sm:p-7 hover:-translate-y-0.5 hover:shadow-lg"
           >
             <p className="font-mono text-xs tracking-[0.2em] text-blue">
               {item.index}
             </p>
-            <h3 className="font-display mt-4 text-2xl font-semibold tracking-tight">
+            <h3 className="font-display mt-3 text-xl font-semibold tracking-tight sm:mt-4 sm:text-2xl">
               {item.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+            <p className="mt-2 text-sm leading-relaxed text-muted sm:mt-3 sm:text-base">
               {item.body}
             </p>
           </article>

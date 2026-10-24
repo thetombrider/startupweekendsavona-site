@@ -25,22 +25,22 @@ export const valueProps = [
   {
     index: "01",
     title: "Conosci altri aspiranti imprenditori",
-    body: "Conosci altri innovatori con cui confrontarti e lavorare in squadra.",
+    body: "Trova co-founder e lavora in squadra con altri innovatori.",
   },
   {
     index: "02",
     title: "Realizza la tua idea di startup",
-    body: "Metti alla prova la tua idea con le tecniche di fast prototyping tipiche del metodo Lean Startup.",
+    body: "Validala e prototipala con il metodo Lean Startup.",
   },
   {
     index: "03",
     title: "Impara dai migliori mentori",
-    body: "Impara da founder e altri esperti che ti supporteranno durante tutto il weekend.",
+    body: "Founder ed esperti ti seguono per tutto il weekend.",
   },
   {
     index: "04",
     title: "Incontra investitori",
-    body: "Incontra potenziali investitori per la tua impresa e metti alla prova le tue skills di public speaking.",
+    body: "Presenta il tuo progetto a una giuria di investitori.",
   },
 ];
 
@@ -199,7 +199,7 @@ export const faqs = [
 ];
 
 const sharedAbout =
-  "Techstars Startup Weekend è il più grande programma di imprenditorialità di base al mondo. Impara a pensare, lavorare e costruire come una startup in sole 54 ore. Startup Weekend Savona è un tuffo coinvolgente nel mondo delle startup: in tre giorni ricchi di azione incontrerai mentors, investitori, co-founder e sponsor, e capirai come si lavora a una startup partendo dall’idea.";
+  "Il più grande programma di imprenditorialità al mondo arriva a Savona: in un weekend passi da un’idea a una startup, con un team, mentori e investitori.";
 
 const brochureUrl =
   "https://www.papermark.com/view/cmge6qk6n0001jv046ry9t1wh";
