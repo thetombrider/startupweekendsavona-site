@@ -354,12 +354,8 @@ function HowItWorks() {
             <p className="mt-8 text-xs font-semibold tracking-[0.2em] text-muted uppercase">
               {step.when}
             </p>
-            <h3 className="font-display mt-3 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl">
-              {step.title.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
+            <h3 className="font-display mt-3 max-w-xs text-4xl leading-[1.05] font-semibold tracking-tight lg:text-5xl">
+              {step.title}
             </h3>
             <p className="mt-4 max-w-sm text-base leading-relaxed text-muted">
               {step.body}

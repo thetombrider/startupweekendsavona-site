@@ -57,18 +57,18 @@ export const techstarsNetworkNote =
 export const howItWorks = [
   {
     when: "Venerdì sera",
-    title: ["60 seconds", "to pitch"],
-    body: "Hai 60 secondi per convincere gli altri. Le migliori idee formano i team.",
+    title: "Pitch da 60 secondi",
+    body: "Chi vuole presenta la propria idea in un minuto. Si vota e le idee migliori formano i team.",
   },
   {
-    when: "Sabato e domenica",
-    title: ["From idea", "to MVP"],
-    body: "Lavori con il tuo team, guidato da mentor esperti, per validare l’idea e costruire un MVP.",
+    when: "Sabato",
+    title: "Dall’idea al prototipo",
+    body: "Lavori in team con mentor, founder e investitori per validare il problema e costruire un MVP.",
   },
   {
-    when: "Domenica pomeriggio",
-    title: ["Pitch session"],
-    body: "Presenti il tuo progetto a una giuria di esperti. Vince la startup migliore.",
+    when: "Domenica",
+    title: "Pitch finale e premi",
+    body: "Presenti il progetto alla giuria sul palco della Fortezza. Premiazione e aperitivo per tutti.",
   },
 ];
 
