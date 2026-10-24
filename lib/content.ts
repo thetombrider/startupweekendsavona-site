@@ -154,6 +154,7 @@ const agenda2026: AgendaDay[] = [
         title: "Presentazione idee ai mentori + attività di validazione",
       },
       { time: "16:45", title: "Mentoring individuale" },
+      { time: "19:30", title: "Workshop - ABREMAR" },
       { time: "20:00", title: "Cena" },
       { time: "21:00", title: "Teamwork" },
       { time: "23:00", title: "Chiusura dei lavori" },
@@ -192,7 +193,7 @@ const agenda2025: AgendaDay[] = agenda2026.map((day, i) => ({
             ? { ...item, title: "Kick-off speech by Pancrazio Auteri" }
             : item,
         )
-      : day.items,
+      : day.items.filter((item) => item.title !== "Workshop - ABREMAR"),
 }));
 
 const agenda2024: AgendaDay[] = [
@@ -376,6 +377,7 @@ export const edition2026: Edition = {
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
     group("Main Sponsors", [
+      { name: "ABREMAR", image: "/images/sponsors/abremar.png" },
       { name: "Azimut Capital Management", image: "/images/sponsors/azimut.png" },
       { name: "Fondazione De Mari", image: "/images/sponsors/fmd.png" },
     ]),
