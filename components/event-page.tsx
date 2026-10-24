@@ -85,7 +85,7 @@ function Hero({
         54
       </div>
 
-      <Container className="relative grid items-center gap-10 pt-28 pb-16 sm:pb-20 lg:min-h-[100svh] lg:pt-24 lg:pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+      <Container className="relative grid items-center gap-10 pt-28 pb-16 sm:pb-20 lg:min-h-[100svh] lg:pt-24 lg:pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <div>
           {!edition.isCurrent ? (
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-blue uppercase">
@@ -126,7 +126,7 @@ function Hero({
           ) : null}
         </div>
 
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] lg:aspect-[4/5]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
           <Image
             src={edition.heroImage}
             alt="Partecipanti di Startup Weekend Savona"
