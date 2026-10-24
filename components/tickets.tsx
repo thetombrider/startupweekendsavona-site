@@ -5,6 +5,7 @@ import { ticketIncludes } from "@/lib/content";
 import {
   formatPrice,
   formatTierDate,
+  formatTierTime,
   formatTimeLeft,
   getTicketState,
   TICKET_EVENT,
@@ -29,10 +30,14 @@ export function TicketTiers({
   ticketUrl: string;
   fallbackNow: number;
 }) {
-  const { now, tiers: visible, current, next, totalSeats } = useTicketState(
-    tiers,
-    fallbackNow,
-  );
+  const {
+    now,
+    tiers: visible,
+    current,
+    next,
+    nextFollowsCurrent,
+    totalSeats,
+  } = useTicketState(tiers, fallbackNow);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
@@ -47,24 +52,38 @@ export function TicketTiers({
               <p className="font-display text-6xl font-semibold tracking-tight sm:text-7xl">
                 {formatPrice(current.price)}
               </p>
-              {next ? (
+              {next && nextFollowsCurrent ? (
                 <p className="pb-2 text-lg text-white/50 line-through decoration-blue/70">
                   {formatPrice(next.price)}
                 </p>
               ) : null}
             </div>
             <p className="mt-4 text-base text-white/80">
-              Solo {current.seats} biglietti a questo prezzo.
-              {next ? (
-                <>
-                  {" "}
-                  Tra{" "}
-                  <span className="font-semibold text-paper">
-                    {formatTimeLeft(current.endAt, now)}
-                  </span>{" "}
-                  il prezzo sale a {formatPrice(next.price)}.
-                </>
-              ) : null}
+              Solo {current.seats} biglietti a questo prezzo.{" "}
+              {nextFollowsCurrent && next ? "Tra " : "Il lotto chiude tra "}
+              <span className="font-semibold text-paper">
+                {formatTimeLeft(current.endAt, now)}
+              </span>
+              {nextFollowsCurrent && next
+                ? `, poi il prezzo sale a ${formatPrice(next.price)}.`
+                : "."}
+            </p>
+          </>
+        ) : next ? (
+          <>
+            <p className="text-xs tracking-[0.24em] text-blue uppercase">
+              Prossimo lotto · {next.name}
+            </p>
+            <p className="font-display mt-5 text-6xl font-semibold tracking-tight sm:text-7xl">
+              {formatPrice(next.price)}
+            </p>
+            <p className="mt-4 text-base text-white/80">
+              {next.seats} biglietti in vendita dal {formatTierDate(next.startAt)}{" "}
+              alle {formatTierTime(next.startAt)}, tra{" "}
+              <span className="font-semibold text-paper">
+                {formatTimeLeft(next.startAt, now)}
+              </span>
+              .
             </p>
           </>
         ) : (
@@ -89,7 +108,7 @@ export function TicketTiers({
           >
             {current
               ? `Compra a ${formatPrice(current.price)}`
-              : "Compra il tuo biglietto"}
+              : "Vai su Eventbrite"}
             <ArrowIcon />
           </ButtonLink>
           <p className="mt-3 text-xs text-white/50">
@@ -188,14 +207,27 @@ export function CurrentPriceNote({
   fallbackNow: number;
   className?: string;
 }) {
-  const { now, current, next } = useTicketState(tiers, fallbackNow);
-  if (!current) return null;
+  const { now, current, next, nextFollowsCurrent } = useTicketState(
+    tiers,
+    fallbackNow,
+  );
+  if (!current) {
+    if (!next) return null;
+    return (
+      <p className={className}>
+        <span className="font-semibold text-paper">
+          {next.name} a {formatPrice(next.price)}
+        </span>
+        {` · dal ${formatTierDate(next.startAt)}`}
+      </p>
+    );
+  }
   return (
     <p className={className}>
       <span className="font-semibold text-paper">
         {current.name} a {formatPrice(current.price)}
       </span>
-      {next
+      {nextFollowsCurrent && next
         ? ` · tra ${formatTimeLeft(current.endAt, now)} sale a ${formatPrice(next.price)}`
         : ` · solo ${current.seats} posti`}
     </p>
@@ -211,7 +243,10 @@ export function StickyTicketBar({
   ticketUrl: string;
   fallbackNow: number;
 }) {
-  const { now, current, next } = useTicketState(tiers, fallbackNow);
+  const { now, current, next, nextFollowsCurrent } = useTicketState(
+    tiers,
+    fallbackNow,
+  );
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -245,12 +280,18 @@ export function StickyTicketBar({
           <p className="truncate text-sm font-semibold">
             {current
               ? `${current.name} · ${formatPrice(current.price)}`
-              : "Startup Weekend Savona"}
+              : next
+                ? `${next.name} · ${formatPrice(next.price)}`
+                : "Startup Weekend Savona"}
           </p>
           <p className="truncate text-xs text-white/60">
-            {current && next
+            {current && next && nextFollowsCurrent
               ? `Sale a ${formatPrice(next.price)} tra ${formatTimeLeft(current.endAt, now)}`
-              : "Posti limitati"}
+              : current
+                ? `Chiude tra ${formatTimeLeft(current.endAt, now)}`
+                : next
+                  ? `In vendita tra ${formatTimeLeft(next.startAt, now)}`
+                  : "Posti limitati"}
           </p>
         </div>
         <ButtonLink

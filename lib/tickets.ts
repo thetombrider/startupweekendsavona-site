@@ -10,40 +10,48 @@ export type TicketState = {
   tiers: TierView[];
   current?: TierView;
   next?: TierView;
+  /** True when `next` goes on sale as soon as `current` ends. */
+  nextFollowsCurrent: boolean;
   totalSeats: number;
 };
 
+const time = (iso: string) => new Date(iso).getTime();
+
+function statusAt(tier: TicketTier, now: number): TierStatus {
+  if (now >= time(tier.endAt)) return "past";
+  return now >= time(tier.startAt) ? "active" : "upcoming";
+}
+
 export function getTicketState(tiers: TicketTier[], now: number): TicketState {
-  const visible: TierView[] = tiers
-    .filter(
-      (tier) => !tier.hiddenUntilStart || new Date(tier.startAt).getTime() <= now,
-    )
-    .map((tier) => {
-      const start = new Date(tier.startAt).getTime();
-      const end = new Date(tier.endAt).getTime();
-      const status: TierStatus =
-        now >= end ? "past" : now >= start ? "active" : "upcoming";
-      return { ...tier, status };
-    })
-    .sort(
-      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
-    );
+  const all: TierView[] = tiers
+    .map((tier) => ({ ...tier, status: statusAt(tier, now) }))
+    .sort((a, b) => time(a.startAt) - time(b.startAt));
+
+  // Hidden tiers stay secret only while another tier is on sale.
+  const anotherOnSale = all.some(
+    (tier) => !tier.hiddenUntilStart && tier.status === "active",
+  );
+  const visible = all.filter(
+    (tier) =>
+      !tier.hiddenUntilStart || tier.status !== "upcoming" || !anotherOnSale,
+  );
 
   const current = visible
     .filter((tier) => tier.status === "active")
     .sort((a, b) => a.price - b.price)[0];
 
-  const currentEnd = current ? new Date(current.endAt).getTime() : now;
   const next = visible.find(
     (tier) =>
       tier.status === "upcoming" &&
-      new Date(tier.startAt).getTime() >= currentEnd,
+      (!current || time(tier.startAt) >= time(current.endAt)),
   );
 
   return {
     tiers: visible,
     current,
     next,
+    nextFollowsCurrent:
+      !!current && !!next && time(next.startAt) === time(current.endAt),
     totalSeats: tiers.reduce((sum, tier) => sum + tier.seats, 0),
   };
 }
@@ -56,6 +64,16 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", {
 
 export function formatTierDate(iso: string) {
   return dateFormatter.format(new Date(iso));
+}
+
+const timeFormatter = new Intl.DateTimeFormat("it-IT", {
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "Europe/Rome",
+});
+
+export function formatTierTime(iso: string) {
+  return timeFormatter.format(new Date(iso));
 }
 
 export function formatPrice(price: number) {
