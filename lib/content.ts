@@ -448,6 +448,11 @@ export const edition2026: Edition = {
       role: "Investor @ Italian Founders Fund",
       image: "/images/people/franciosa-twinkly.jpg",
     },
+    {
+      name: "Miriam Molinari",
+      role: "Senior Innovation Manager · Technology Transfer @ IIT",
+      image: "/images/people/molinari.jpg",
+    },
   ],
   facilitator: facilitatorNox,
   prizes: [
