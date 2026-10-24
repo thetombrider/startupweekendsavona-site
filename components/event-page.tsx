@@ -820,7 +820,7 @@ function Moments({
             trackEvent={TICKET_EVENT}
             trackPosition="moments"
           >
-            Vieni alla prossima edizione
+            Partecipa all’edizione {edition.year}
             <ArrowIcon />
           </ButtonLink>
         </div>

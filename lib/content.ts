@@ -408,7 +408,7 @@ export const edition2026: Edition = {
       caption: "Pitch da 60 secondi",
     },
     {
-      image: "/images/gallery/g5.jpg",
+      image: "/images/gallery/g13.jpg",
       when: "Sabato",
       caption: "Si lavora in team",
     },
