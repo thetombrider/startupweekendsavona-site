@@ -385,7 +385,7 @@ function Alumni() {
 
 function Food() {
   return (
-    <section className="pb-24 sm:pb-32">
+    <section className="py-24 sm:py-32">
       <Container>
         <div className="grid gap-10 rounded-[2rem] border border-line bg-white p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
