@@ -6,6 +6,7 @@ import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
 import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink } from "./ui";
+import { TICKET_EVENT } from "@/lib/tickets";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader({
@@ -36,11 +37,15 @@ export function SiteHeader({
   const links = [
     { href: `${edition.slug === "/" ? "" : edition.slug}#about`, label: "L’evento" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#agenda`, label: "Agenda" },
-    { href: `${edition.slug === "/" ? "" : edition.slug}#people`, label: "Mentors" },
+    { href: `${edition.slug === "/" ? "" : edition.slug}#people`, label: "Mentor" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#premi`, label: "Premi" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#faq`, label: "FAQ" },
+    ...(edition.isCurrent && edition.tickets
+      ? [{ href: "#biglietti", label: "Prezzi" }]
+      : []),
   ];
 
+  const onLight = overlay && !scrolled && !open;
   const ctaHref = edition.isCurrent ? edition.ticketUrl! : "/";
   const ctaLabel = edition.isCurrent ? "Biglietti" : "Edizione 2026";
 
@@ -48,15 +53,24 @@ export function SiteHeader({
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled || open || !overlay
-          ? "bg-ink/95 shadow-lg shadow-black/20 backdrop-blur-xl"
-          : "bg-transparent",
+        onLight
+          ? "bg-transparent"
+          : "bg-ink/95 shadow-lg shadow-black/20 backdrop-blur-xl",
       )}
     >
       <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-8">
-        <Logo className="h-10 w-auto sm:h-12" priority />
+        <Logo
+          className="h-10 w-auto sm:h-12"
+          priority
+          tone={onLight ? "dark" : "light"}
+        />
 
-        <nav className="hidden items-center gap-7 text-sm text-white/75 lg:flex">
+        <nav
+          className={cn(
+            "hidden items-center gap-7 text-sm lg:flex",
+            onLight ? "text-ink/75" : "text-white/75",
+          )}
+        >
           {links.map((link) => (
             <a
               key={link.href}
@@ -113,12 +127,19 @@ export function SiteHeader({
             variant="accent"
             className="hidden !px-5 !py-2 sm:inline-flex"
             external={edition.isCurrent}
+            trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+            trackPosition="header"
           >
             {ctaLabel}
             <ArrowIcon />
           </ButtonLink>
           <button
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-paper lg:hidden"
+            className={cn(
+              "grid h-10 w-10 place-items-center rounded-full border lg:hidden",
+              onLight
+                ? "border-ink/15 text-ink"
+                : "border-white/15 text-paper",
+            )}
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Chiudi menu" : "Apri menu"}
             aria-expanded={open}
@@ -175,6 +196,8 @@ export function SiteHeader({
               variant="accent"
               className="mt-2"
               external={edition.isCurrent}
+              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+              trackPosition="mobile-menu"
             >
               {ctaLabel}
             </ButtonLink>

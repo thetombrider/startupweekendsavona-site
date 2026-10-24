@@ -5,9 +5,11 @@ import { cn } from "@/lib/utils";
 export function Logo({
   className,
   priority = false,
+  tone = "light",
 }: {
   className?: string;
   priority?: boolean;
+  tone?: "light" | "dark";
 }) {
   return (
     <Link
@@ -16,7 +18,11 @@ export function Logo({
       aria-label="Techstars Startup Weekend Savona"
     >
       <Image
-        src="/images/brand/lockup.png"
+        src={
+          tone === "dark"
+            ? "/images/brand/lockup-dark.png"
+            : "/images/brand/lockup.png"
+        }
         alt="Techstars Startup Weekend Savona"
         width={1600}
         height={549}

@@ -66,12 +66,16 @@ export function ButtonLink({
   variant = "primary",
   className,
   external,
+  trackEvent,
+  trackPosition,
 }: {
   href: string;
   children: ReactNode;
   variant?: "primary" | "ghost" | "dark" | "accent";
   className?: string;
   external?: boolean;
+  trackEvent?: string;
+  trackPosition?: string;
 }) {
   const styles = {
     primary:
@@ -93,6 +97,12 @@ export function ButtonLink({
       )}
       {...(external
         ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+      {...(trackEvent
+        ? {
+            "data-umami-event": trackEvent,
+            "data-umami-event-position": trackPosition,
+          }
         : {})}
     >
       {children}

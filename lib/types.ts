@@ -22,6 +22,15 @@ export type PrizeTier = {
   items: string[];
 };
 
+export type TicketTier = {
+  name: string;
+  price: number;
+  seats: number;
+  startAt: string;
+  endAt: string;
+  hiddenUntilStart?: boolean;
+};
+
 export type Sponsor = {
   name: string;
   image: string;
@@ -39,17 +48,21 @@ export type Edition = {
   isCurrent: boolean;
   kicker: string;
   headline: string;
+  lead?: string;
   datesLabel: string;
   datesShort: string;
   venue: string;
   startAt: string;
   ticketUrl?: string;
+  tickets?: TicketTier[];
   ticketLabel: string;
   brochureUrl: string;
   mapUrl: string;
   heroImage: string;
   aboutImage: string;
   gallery: string[];
+  moments?: { image: string; when: string; caption: string }[];
+  reelUrl?: string;
   recapVideoUrl?: string;
   jury: Person[];
   mentors: Person[];
