@@ -342,22 +342,26 @@ function HowItWorks() {
         title="Tre giorni, una startup"
         body="Non serve avere un’idea né un team: puoi venire da solo e unirti a un progetto il venerdì sera."
       />
-      <Container className="mt-14 grid gap-5 md:grid-cols-3">
+      <Container className="mt-14 grid gap-12 md:grid-cols-3 md:gap-0">
         {howItWorks.map((step, i) => (
-          <article
-            key={step.title}
-            className="rounded-[1.75rem] border border-line bg-white p-7"
-          >
-            <p className="grid h-10 w-10 place-items-center rounded-full bg-blue font-display text-lg font-semibold text-white">
-              {i + 1}
-            </p>
-            <p className="mt-6 text-xs tracking-[0.22em] text-blue uppercase">
+          <article key={step.when} className="md:pr-10">
+            <div className="flex items-center">
+              <p className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-blue font-display text-lg font-semibold text-ink">
+                {i + 1}
+              </p>
+              <span aria-hidden className="h-px flex-1 bg-line md:-mr-10" />
+            </div>
+            <p className="mt-8 text-xs font-semibold tracking-[0.2em] text-muted uppercase">
               {step.when}
             </p>
-            <h3 className="font-display mt-2 text-2xl font-semibold tracking-tight">
-              {step.title}
+            <h3 className="font-display mt-3 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl">
+              {step.title.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+            <p className="mt-4 max-w-sm text-base leading-relaxed text-muted">
               {step.body}
             </p>
           </article>
