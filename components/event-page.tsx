@@ -18,7 +18,7 @@ import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
 import { Logo } from "./logo";
-import { CurrentPriceNote, StickyTicketBar, TicketTiers } from "./tickets";
+import { PriceUrgency, StickyTicketBar, TicketTiers } from "./tickets";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
 
 const buildTime = Date.now();
@@ -113,7 +113,16 @@ function Hero({
           <p className="mt-6 max-w-xl text-lg text-white/75">
             {edition.datesLabel} · {edition.venue}
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          {edition.isCurrent && edition.tickets ? (
+            <div className="mt-8">
+              <PriceUrgency
+                tiers={edition.tickets}
+                fallbackNow={fallbackNow}
+                eventStart={edition.startAt}
+              />
+            </div>
+          ) : null}
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <ButtonLink
               href={ticketHref}
               variant="accent"
@@ -131,16 +140,9 @@ function Hero({
               </ButtonLink>
             ) : null}
           </div>
-          {edition.isCurrent && edition.tickets ? (
-            <CurrentPriceNote
-              tiers={edition.tickets}
-              fallbackNow={fallbackNow}
-              className="mt-4 text-sm text-white/70"
-            />
-          ) : null}
         </div>
 
-        {edition.isCurrent ? (
+        {edition.isCurrent && !edition.tickets ? (
           <div className="mt-14 max-w-xl">
             <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
               Manca
@@ -338,9 +340,13 @@ function Alumni() {
               <p className="text-xs tracking-[0.24em] text-white/70 uppercase">
                 Nata qui · Edizione {item.edition}
               </p>
-              <p className="font-display mt-2 text-5xl font-semibold tracking-tight sm:text-6xl">
-                {item.name}
-              </p>
+              <Image
+                src={item.logo}
+                alt={item.name}
+                width={1414}
+                height={450}
+                className="mt-4 h-12 w-auto sm:h-16"
+              />
             </div>
             <p className="max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
               {item.description}

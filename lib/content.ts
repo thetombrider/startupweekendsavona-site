@@ -90,6 +90,7 @@ export const alumni = [
   {
     name: "Velto",
     url: "https://velto.it",
+    logo: "/images/velto-logo.svg",
     edition: 2024,
     description:
       "Nata alla prima edizione di Startup Weekend Savona: oggi è sul mercato con una piattaforma di WhatsApp marketing con AI per le PMI italiane e ha raccolto un round da business angel.",

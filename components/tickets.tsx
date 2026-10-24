@@ -14,6 +14,7 @@ import {
 import type { TicketTier } from "@/lib/types";
 import { useNow } from "@/lib/use-now";
 import { cn } from "@/lib/utils";
+import { Countdown } from "./countdown";
 import { ArrowIcon, ButtonLink } from "./ui";
 
 function useTicketState(tiers: TicketTier[], fallbackNow: number) {
@@ -198,39 +199,70 @@ function CheckIcon() {
   );
 }
 
-export function CurrentPriceNote({
+export function PriceUrgency({
   tiers,
   fallbackNow,
-  className,
+  eventStart,
 }: {
   tiers: TicketTier[];
   fallbackNow: number;
-  className?: string;
+  eventStart: string;
 }) {
-  const { now, current, next, nextFollowsCurrent } = useTicketState(
+  const { current, next, nextFollowsCurrent } = useTicketState(
     tiers,
     fallbackNow,
   );
-  if (!current) {
-    if (!next) return null;
+
+  if (!current && !next) {
     return (
-      <p className={className}>
-        <span className="font-semibold text-paper">
-          {next.name} a {formatPrice(next.price)}
-        </span>
-        {` · dal ${formatTierDate(next.startAt)}`}
-      </p>
+      <div className="max-w-xl">
+        <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
+          Manca
+        </p>
+        <Countdown target={eventStart} />
+      </div>
     );
   }
+
+  const tier = current ?? next!;
+  const rising = current && next && nextFollowsCurrent ? next : undefined;
+
   return (
-    <p className={className}>
-      <span className="font-semibold text-paper">
-        {current.name} a {formatPrice(current.price)}
-      </span>
-      {nextFollowsCurrent && next
-        ? ` · tra ${formatTimeLeft(current.endAt, now)} sale a ${formatPrice(next.price)}`
-        : ` · solo ${current.seats} posti`}
-    </p>
+    <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink/70 p-5 shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] backdrop-blur-md sm:p-7">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <div>
+          <p className="inline-flex items-center gap-2 text-xs tracking-[0.24em] text-blue uppercase">
+            {current ? (
+              <span className="h-2 w-2 animate-pulse rounded-full bg-blue" />
+            ) : null}
+            {current ? "In vendita ora" : "Prossimo lotto"} · {tier.name}
+          </p>
+          <div className="mt-2 flex items-end gap-3">
+            <p className="font-display text-5xl leading-none font-semibold tracking-tight text-paper sm:text-6xl">
+              {formatPrice(tier.price)}
+            </p>
+            {rising ? (
+              <p className="pb-1 text-xl text-white/50 line-through decoration-blue/80 sm:text-2xl">
+                {formatPrice(rising.price)}
+              </p>
+            ) : null}
+          </div>
+        </div>
+        <p className="text-sm text-white/70 sm:text-right">
+          {current
+            ? `Solo ${tier.seats} biglietti a questo prezzo`
+            : `${tier.seats} biglietti dal ${formatTierDate(tier.startAt)}`}
+        </p>
+      </div>
+      <p className="mt-5 mb-3 text-sm font-semibold text-paper sm:text-base">
+        {rising
+          ? `Il prezzo sale a ${formatPrice(rising.price)} tra:`
+          : current
+            ? "Il lotto chiude tra:"
+            : "In vendita tra:"}
+      </p>
+      <Countdown target={current ? current.endAt : tier.startAt} />
+    </div>
   );
 }
 
