@@ -1,33 +1,15 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
+import { useMemo } from "react";
+import { useNow } from "@/lib/use-now";
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
 }
 
-let cachedNow = 0;
-
-function subscribe(onStoreChange: () => void) {
-  cachedNow = Date.now();
-  const id = window.setInterval(() => {
-    cachedNow = Date.now();
-    onStoreChange();
-  }, 1000);
-  return () => window.clearInterval(id);
-}
-
-function getSnapshot() {
-  return cachedNow;
-}
-
-function getServerSnapshot() {
-  return 0;
-}
-
 export function Countdown({ target }: { target: string }) {
   const date = useMemo(() => new Date(target).getTime(), [target]);
-  const now = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const now = useNow();
 
   if (now === 0) {
     return (

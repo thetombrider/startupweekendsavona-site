@@ -6,6 +6,7 @@ import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
 import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink } from "./ui";
+import { TICKET_EVENT } from "@/lib/tickets";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader({
@@ -36,9 +37,12 @@ export function SiteHeader({
   const links = [
     { href: `${edition.slug === "/" ? "" : edition.slug}#about`, label: "L’evento" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#agenda`, label: "Agenda" },
-    { href: `${edition.slug === "/" ? "" : edition.slug}#people`, label: "Mentors" },
+    { href: `${edition.slug === "/" ? "" : edition.slug}#people`, label: "Mentor" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#premi`, label: "Premi" },
     { href: `${edition.slug === "/" ? "" : edition.slug}#faq`, label: "FAQ" },
+    ...(edition.isCurrent && edition.tickets
+      ? [{ href: "#biglietti", label: "Prezzi" }]
+      : []),
   ];
 
   const ctaHref = edition.isCurrent ? edition.ticketUrl! : "/";
@@ -113,6 +117,8 @@ export function SiteHeader({
             variant="accent"
             className="hidden !px-5 !py-2 sm:inline-flex"
             external={edition.isCurrent}
+            trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+            trackPosition="header"
           >
             {ctaLabel}
             <ArrowIcon />
@@ -175,6 +181,8 @@ export function SiteHeader({
               variant="accent"
               className="mt-2"
               external={edition.isCurrent}
+              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+              trackPosition="mobile-menu"
             >
               {ctaLabel}
             </ButtonLink>

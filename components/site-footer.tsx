@@ -11,7 +11,7 @@ export function SiteFooter({ edition }: { edition: Edition }) {
         <div>
           <Logo className="h-14 w-auto sm:h-16" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
-            Learn, think and build like a startup. Un evento organizzato da{" "}
+            Impara a pensare, lavorare e costruire come una startup. Un evento organizzato da{" "}
             <a
               href={site.organizerUrl}
               className="text-blue hover:underline"

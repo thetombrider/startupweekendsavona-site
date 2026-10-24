@@ -1,35 +1,72 @@
 import Image from "next/image";
-import { aboutCopy, pastEditions, stats, valueProps } from "@/lib/content";
+import {
+  aboutCopy,
+  alumni,
+  howItWorks,
+  meals,
+  press,
+  pressAllUrl,
+  pressAlsoIn,
+  pastEditions,
+  stats,
+  techstarsNetworkNote,
+  valueProps,
+} from "@/lib/content";
+import { TICKET_EVENT } from "@/lib/tickets";
 import type { Edition, Person } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
 import { Logo } from "./logo";
+import { CurrentPriceNote, StickyTicketBar, TicketTiers } from "./tickets";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
+
+const buildTime = Date.now();
 
 export function EventPage({ edition }: { edition: Edition }) {
   const ticketHref = edition.isCurrent ? edition.ticketUrl! : "/";
+  const fallbackNow = buildTime;
+  const tiers = edition.isCurrent ? edition.tickets : undefined;
 
   return (
     <main>
-      <Hero edition={edition} ticketHref={ticketHref} />
+      <Hero
+        edition={edition}
+        ticketHref={ticketHref}
+        fallbackNow={fallbackNow}
+      />
       <Marquee />
       <About edition={edition} />
       <ValueProps />
       <StatsBand />
-      <AgendaSection edition={edition} ticketHref={ticketHref} />
+      <HowItWorks />
+      <Alumni />
+      <Prizes edition={edition} />
+      <Food />
+      {tiers ? (
+        <TicketsSection
+          edition={edition}
+          ticketHref={ticketHref}
+          fallbackNow={fallbackNow}
+        />
+      ) : null}
       <PeopleSection edition={edition} />
       <Facilitator person={edition.facilitator} />
-      <Prizes edition={edition} />
-      {edition.isCurrent ? (
-        <CountdownBand edition={edition} ticketHref={ticketHref} />
-      ) : null}
+      <AgendaSection edition={edition} ticketHref={ticketHref} />
       <Gallery edition={edition} />
       <VideoRecap edition={edition} />
       <PastEditionRecap edition={edition} />
+      <Press />
       <Sponsors edition={edition} />
       <FaqSection />
       <FinalCta edition={edition} ticketHref={ticketHref} />
+      {tiers ? (
+        <StickyTicketBar
+          tiers={tiers}
+          ticketUrl={ticketHref}
+          fallbackNow={fallbackNow}
+        />
+      ) : null}
     </main>
   );
 }
@@ -37,9 +74,11 @@ export function EventPage({ edition }: { edition: Edition }) {
 function Hero({
   edition,
   ticketHref,
+  fallbackNow,
 }: {
   edition: Edition;
   ticketHref: string;
+  fallbackNow: number;
 }) {
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-ink text-paper">
@@ -75,17 +114,30 @@ function Hero({
             {edition.datesLabel} · {edition.venue}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
+            <ButtonLink
+              href={ticketHref}
+              variant="accent"
+              external={edition.isCurrent}
+              className="!py-4 text-base"
+              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+              trackPosition="hero"
+            >
               {edition.ticketLabel}
               <ArrowIcon />
             </ButtonLink>
-            <ButtonLink href={edition.brochureUrl} variant="ghost" external>
-              Download brochure
-            </ButtonLink>
-            <ButtonLink href={edition.mapUrl} variant="ghost" external>
-              Come arrivare
-            </ButtonLink>
+            {edition.isCurrent ? (
+              <ButtonLink href="#come-funziona" variant="ghost" className="!py-4">
+                Come funziona
+              </ButtonLink>
+            ) : null}
           </div>
+          {edition.isCurrent && edition.tickets ? (
+            <CurrentPriceNote
+              tiers={edition.tickets}
+              fallbackNow={fallbackNow}
+              className="mt-4 text-sm text-white/70"
+            />
+          ) : null}
         </div>
 
         {edition.isCurrent ? (
@@ -103,13 +155,13 @@ function Hero({
 
 function Marquee() {
   const items = [
-    "Pitch",
+    "Idee",
     "Team",
-    "Build",
     "Mentor",
-    "Validate",
-    "Prototype",
+    "Validazione",
+    "Prototipo",
     "Pitch finale",
+    "Giuria",
     "54 ore",
   ];
   const loop = [...items, ...items, ...items, ...items];
@@ -146,6 +198,26 @@ function About({ edition }: { edition: Edition }) {
           <p className="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
             Sarai tu il prossimo startupper ad avviare la propria attività?
           </p>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a
+              href={edition.brochureUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-blue hover:text-blue-deep"
+            >
+              Scarica la brochure
+              <ArrowIcon />
+            </a>
+            <a
+              href={edition.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-blue hover:text-blue-deep"
+            >
+              Come arrivare alla Fortezza
+              <ArrowIcon />
+            </a>
+          </div>
         </div>
         <div className="relative">
           <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-blue/40 blur-2xl" />
@@ -209,6 +281,194 @@ function StatsBand() {
             </p>
           </div>
         ))}
+        <p className="col-span-2 text-center text-sm text-white/50 lg:col-span-4 lg:text-left">
+          {techstarsNetworkNote}
+        </p>
+      </Container>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  return (
+    <section id="come-funziona" className="scroll-mt-24 py-24 sm:py-32">
+      <SectionHeading
+        eyebrow="Come funziona"
+        title="Tre giorni, una startup"
+        body="Non serve avere un’idea né un team: puoi venire da solo e unirti a un progetto il venerdì sera."
+      />
+      <Container className="mt-14 grid gap-5 md:grid-cols-3">
+        {howItWorks.map((step, i) => (
+          <article
+            key={step.title}
+            className="rounded-[1.75rem] border border-line bg-white p-7"
+          >
+            <p className="grid h-10 w-10 place-items-center rounded-full bg-blue font-display text-lg font-semibold text-white">
+              {i + 1}
+            </p>
+            <p className="mt-6 text-xs tracking-[0.22em] text-blue uppercase">
+              {step.when}
+            </p>
+            <h3 className="font-display mt-2 text-2xl font-semibold tracking-tight">
+              {step.title}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+              {step.body}
+            </p>
+          </article>
+        ))}
+      </Container>
+    </section>
+  );
+}
+
+function Alumni() {
+  return (
+    <section className="pb-24 sm:pb-32">
+      <Container>
+        {alumni.map((item) => (
+          <a
+            key={item.name}
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group grid gap-6 rounded-[2rem] bg-blue p-8 text-white transition hover:bg-blue-deep sm:p-12 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-12"
+          >
+            <div>
+              <p className="text-xs tracking-[0.24em] text-white/70 uppercase">
+                Nata qui · Edizione {item.edition}
+              </p>
+              <p className="font-display mt-2 text-5xl font-semibold tracking-tight sm:text-6xl">
+                {item.name}
+              </p>
+            </div>
+            <p className="max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+              {item.description}
+            </p>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold">
+              {item.url.replace("https://", "")}
+              <ArrowIcon className="transition group-hover:translate-x-1" />
+            </span>
+          </a>
+        ))}
+      </Container>
+    </section>
+  );
+}
+
+function Food() {
+  return (
+    <section className="pb-24 sm:pb-32">
+      <Container>
+        <div className="grid gap-10 rounded-[2rem] border border-line bg-white p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-xs tracking-[0.24em] text-blue uppercase">
+              Vitto incluso
+            </p>
+            <h2 className="font-display mt-3 text-3xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
+              7 pasti in 3 giorni, tutti compresi nel biglietto
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
+              Dal venerdì sera all’aperitivo della domenica non spendi nulla per
+              mangiare: colazioni, pranzi, cene, snack e drink sono inclusi. Il
+              biglietto costa meno di quanto spenderesti solo per il cibo.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {meals.map((day) => (
+              <div key={day.day} className="rounded-2xl bg-paper-2 p-5">
+                <p className="text-xs tracking-[0.22em] text-blue uppercase">
+                  {day.day}
+                </p>
+                <ul className="mt-3 space-y-2 font-display text-lg font-semibold">
+                  {day.items.map((meal) => (
+                    <li key={meal}>{meal}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <p className="text-sm text-muted sm:col-span-3">
+              + snack e drink per tutto il weekend. Allergie o diete
+              particolari? Segnalale al momento dell’acquisto.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+const pressDateFormatter = new Intl.DateTimeFormat("it-IT", {
+  month: "long",
+  year: "numeric",
+});
+
+function Press() {
+  return (
+    <section id="stampa" className="scroll-mt-24 pb-24">
+      <SectionHeading eyebrow="Rassegna stampa" title="Parlano di noi" />
+      <Container className="mt-12 grid gap-4 md:grid-cols-3">
+        {press.map((article) => (
+          <a
+            key={article.href}
+            href={article.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col rounded-[1.75rem] border border-line bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            <p className="text-xs tracking-[0.22em] text-blue uppercase">
+              {article.outlet}
+            </p>
+            <p className="mt-1 text-xs text-muted">
+              {pressDateFormatter.format(new Date(`${article.date}T12:00:00`))}
+            </p>
+            <h3 className="font-display mt-4 text-lg leading-snug font-semibold tracking-tight group-hover:text-blue">
+              {article.title}
+            </h3>
+            <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-blue">
+              Leggi l’articolo
+              <ArrowIcon />
+            </span>
+          </a>
+        ))}
+      </Container>
+      <Container className="mt-6 text-center text-sm text-muted">
+        Ne hanno scritto anche {pressAlsoIn.join(", ")}.{" "}
+        <a
+          href={pressAllUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-blue hover:underline"
+        >
+          Tutta la rassegna stampa
+        </a>
+      </Container>
+    </section>
+  );
+}
+
+function TicketsSection({
+  edition,
+  ticketHref,
+  fallbackNow,
+}: {
+  edition: Edition;
+  ticketHref: string;
+  fallbackNow: number;
+}) {
+  return (
+    <section id="biglietti" className="scroll-mt-24 bg-paper-2 py-24 sm:py-32">
+      <SectionHeading
+        eyebrow="Biglietti"
+        title="Prima compri, meno paghi"
+        body="Il prezzo sale man mano che si avvicina l’evento e ogni lotto ha un numero fisso di posti."
+      />
+      <Container className="mt-12">
+        <TicketTiers
+          tiers={edition.tickets!}
+          ticketUrl={ticketHref}
+          fallbackNow={fallbackNow}
+        />
       </Container>
     </section>
   );
@@ -231,7 +491,13 @@ function AgendaSection({
       <Container className="mt-12">
         <Agenda days={edition.agenda} />
         <div className="mt-12 flex justify-center">
-          <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
+          <ButtonLink
+            href={ticketHref}
+            variant="accent"
+            external={edition.isCurrent}
+            trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+            trackPosition="agenda"
+          >
             {edition.ticketLabel}
             <ArrowIcon />
           </ButtonLink>
@@ -248,7 +514,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
         <SectionHeading
           invert
           eyebrow="Community"
-          title="Giuria e mentors"
+          title="Giuria e mentor"
           body={
             edition.peopleComingSoon
               ? "I nomi dell’edizione 2026 saranno annunciati a breve. Intanto, il palco della Fortezza si sta riempiendo."
@@ -265,7 +531,7 @@ function PeopleSection({ edition }: { edition: Edition }) {
           />
         </div>
         <div className="mt-16">
-          <h3 className="text-xs tracking-[0.24em] text-blue uppercase">Mentors</h3>
+          <h3 className="text-xs tracking-[0.24em] text-blue uppercase">Mentor</h3>
           <PeopleGrid
             people={edition.mentors}
             comingSoon={edition.peopleComingSoon}
@@ -285,7 +551,7 @@ function MoreComingCard() {
         <p className="text-xs tracking-[0.2em] text-white/40 uppercase">
           In arrivo
         </p>
-        <p className="mt-1 font-display text-lg">& more coming</p>
+        <p className="mt-1 font-display text-lg">Altri nomi in arrivo</p>
       </div>
     </article>
   );
@@ -384,11 +650,17 @@ function Facilitator({ person }: { person: Person }) {
 
 function Prizes({ edition }: { edition: Edition }) {
   return (
-    <section id="premi" className="scroll-mt-24 pb-24">
+    <section id="premi" className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
       <SectionHeading
+        invert
         eyebrow="Premi"
-        title="Cosa si porta a casa chi vince"
-        body={edition.prizesNote}
+        title="In palio per i team vincitori"
+        body={[
+          "Supporto legale per costituire la startup, consulenze, coworking e sessioni con esperti: premi pensati per far partire davvero il progetto.",
+          edition.prizesNote,
+        ]
+          .filter(Boolean)
+          .join(" ")}
       />
       <Container className="mt-12 grid gap-5 lg:grid-cols-3">
         {edition.prizes.map((tier) => (
@@ -396,21 +668,21 @@ function Prizes({ edition }: { edition: Edition }) {
             key={tier.place}
             className={
               tier.rank === 1
-                ? "rounded-[1.75rem] bg-ink p-7 text-paper lg:-translate-y-3"
-                : "rounded-[1.75rem] border border-line bg-white p-7"
+                ? "rounded-[1.75rem] bg-blue p-7 text-white shadow-2xl shadow-blue/20 lg:-translate-y-3"
+                : "rounded-[1.75rem] border border-white/10 bg-white/5 p-7"
             }
           >
             <p
               className={
                 tier.rank === 1
-                  ? "text-xs tracking-[0.22em] text-blue uppercase"
-                  : "text-xs tracking-[0.22em] text-blue uppercase"
+                  ? "font-display text-2xl font-semibold tracking-tight"
+                  : "font-display text-2xl font-semibold tracking-tight text-blue"
               }
             >
               {tier.place}
             </p>
             {edition.prizesComingSoon || tier.items.length === 0 ? (
-              <p className="mt-6 text-sm text-muted">Coming soon…</p>
+              <p className="mt-6 text-sm text-white/60">In arrivo</p>
             ) : (
               <ul className="mt-6 space-y-3 text-sm leading-relaxed">
                 {tier.items.map((item) => (
@@ -418,8 +690,8 @@ function Prizes({ edition }: { edition: Edition }) {
                     <span
                       className={
                         tier.rank === 1
-                          ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue"
-                          : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
+                          ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white"
+                          : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue"
                       }
                     />
                     <span>{item}</span>
@@ -434,41 +706,11 @@ function Prizes({ edition }: { edition: Edition }) {
   );
 }
 
-function CountdownBand({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
-  return (
-    <section className="bg-ink py-16 text-paper">
-      <Container className="grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
-        <div>
-          <p className="text-xs tracking-[0.24em] text-blue uppercase">
-            {edition.datesLabel}
-          </p>
-          <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
-            I posti sono limitati. Affrettati!
-          </h2>
-          <div className="mt-8">
-            <ButtonLink href={ticketHref} variant="accent" external>
-              {edition.ticketLabel}
-              <ArrowIcon />
-            </ButtonLink>
-          </div>
-        </div>
-        <Countdown target={edition.startAt} />
-      </Container>
-    </section>
-  );
-}
-
 function Gallery({ edition }: { edition: Edition }) {
   return (
     <section className="py-24">
       <SectionHeading
-        eyebrow="Atmosphere"
+        eyebrow="Atmosfera"
         title="Lo spirito del weekend"
         body="Pitch nella fortezza, team fino a tardi, mentori al tavolo, aperitivo della domenica."
       />
@@ -566,16 +808,13 @@ function Sponsors({ edition }: { edition: Edition }) {
         title="Chi rende possibile il weekend"
       />
       <Container className="mt-14 space-y-14">
-        {edition.sponsorGroups.map((group) => (
-          <div key={group.title}>
-            <h3 className="text-center text-xs tracking-[0.24em] text-blue uppercase">
-              {group.title}
-            </h3>
-            {group.comingSoon ? (
-              <p className="mt-6 text-center text-sm text-muted">
-                Annuncio in arrivo
-              </p>
-            ) : (
+        {edition.sponsorGroups
+          .filter((group) => !group.comingSoon && group.sponsors.length > 0)
+          .map((group) => (
+            <div key={group.title}>
+              <h3 className="text-center text-xs tracking-[0.24em] text-blue uppercase">
+                {group.title}
+              </h3>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 {group.sponsors.map((sponsor) => (
                   <div
@@ -591,9 +830,8 @@ function Sponsors({ edition }: { edition: Edition }) {
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
       </Container>
     </section>
   );
@@ -630,7 +868,13 @@ function FinalCta({
               : "La prossima edizione è nel 2026."}
           </h2>
           <div className="mt-8">
-            <ButtonLink href={ticketHref} variant="accent" external={edition.isCurrent}>
+            <ButtonLink
+              href={ticketHref}
+              variant="accent"
+              external={edition.isCurrent}
+              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+              trackPosition="final-cta"
+            >
               {edition.ticketLabel}
               <ArrowIcon />
             </ButtonLink>

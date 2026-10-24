@@ -1,4 +1,11 @@
-import type { AgendaDay, Edition, Person, Sponsor, SponsorGroup } from "./types";
+import type {
+  AgendaDay,
+  Edition,
+  Person,
+  Sponsor,
+  SponsorGroup,
+  TicketTier,
+} from "./types";
 
 export const site = {
   name: "Startup Weekend Savona",
@@ -38,55 +45,155 @@ export const valueProps = [
 ];
 
 export const stats = [
-  { value: "7K+", label: "Eventi organizzati" },
-  { value: "150+", label: "Paesi ospitanti" },
-  { value: "19K+", label: "Community leaders" },
-  { value: "428K+", label: "Partecipanti" },
+  { value: "3ª", label: "Edizione a Savona" },
+  { value: "80+", label: "Partecipanti nelle edizioni passate" },
+  { value: "54", label: "Ore dall’idea al pitch" },
+  { value: "50", label: "Posti disponibili" },
+];
+
+export const techstarsNetworkNote =
+  "Parte di Techstars Startup Weekend: 7.000+ eventi in 150+ paesi, 428.000+ partecipanti nel mondo.";
+
+export const howItWorks = [
+  {
+    when: "Venerdì sera",
+    title: "Pitch da 60 secondi",
+    body: "Chi vuole presenta la propria idea in un minuto. Si vota e le idee migliori formano i team.",
+  },
+  {
+    when: "Sabato",
+    title: "Dall’idea al prototipo",
+    body: "Lavori in team con mentor, founder e investitori per validare il problema e costruire un MVP.",
+  },
+  {
+    when: "Domenica",
+    title: "Pitch finale e premi",
+    body: "Presenti il progetto alla giuria sul palco della Fortezza. Premiazione e aperitivo per tutti.",
+  },
+];
+
+export const ticketIncludes = [
+  "Accesso a tutte le 54 ore: pitch, workshop, mentoring e pitch finale",
+  "Mentor, founder e investitori al tuo tavolo per tutto il weekend",
+  "Pitch davanti a una giuria di imprenditori e investitori",
+  "In gara per i premi dei partner",
+  "Vitto incluso: 7 pasti, snack e drink dal venerdì sera alla domenica",
+];
+
+export const meals = [
+  { day: "Venerdì", items: ["Cena"] },
+  { day: "Sabato", items: ["Colazione", "Pranzo", "Cena"] },
+  { day: "Domenica", items: ["Colazione", "Pranzo", "Aperitivo finale"] },
+];
+
+export const alumni = [
+  {
+    name: "Velto",
+    url: "https://velto.it",
+    edition: 2024,
+    description:
+      "Nata alla prima edizione di Startup Weekend Savona: oggi è sul mercato con una piattaforma di WhatsApp marketing con AI per le PMI italiane e ha raccolto un round da business angel.",
+  },
+];
+
+export const press = [
+  {
+    date: "2025-10-14",
+    outlet: "Savonanews",
+    title:
+      "Startup Weekend Savona 2025: torna al Priamar l’evento che accende le idee e crea impresa",
+    href: "https://www.savonanews.it/2025/10/14/leggi-notizia/argomenti/eventi-spettacoli/articolo/startup-weekend-savona-2025-torna-al-priamar-levento-che-accende-le-idee-e-crea-impresa.html",
+  },
+  {
+    date: "2024-12-10",
+    outlet: "IVG",
+    title:
+      "Startup Weekend Savona, ottimo riscontro per la prima edizione. Il sindaco Russo: «una grande boccata di ossigeno»",
+    href: "https://www.ivg.it/2024/12/startup-weekend-savona-ottimo-riscontro-per-la-prima-edizione-dellevento-il-sindaco-russo-quello-che-e-avvenuto-qua-oggi-per-noi-e-davvero-una-grande-boccata-di-ossigeno/",
+  },
+  {
+    date: "2024-11-20",
+    outlet: "La Stampa",
+    title: "A Savona nasce la prima associazione delle start up",
+    href: "https://www.lastampa.it/savona/2024/11/20/news/savona_nasce_prima_associazione_start_up-14821029/",
+  },
+];
+
+export const pressAlsoIn = ["La Nuova Savona", "Trucioli"];
+export const pressAllUrl = "https://www.savonastartup.it/dicono-di-noi";
+
+const tickets2026: TicketTier[] = [
+  {
+    name: "Super Early Bird",
+    price: 25,
+    seats: 10,
+    startAt: "2026-09-01T00:00:00+02:00",
+    endAt: "2026-10-26T18:00:00+01:00",
+  },
+  {
+    name: "Early Bird",
+    price: 35,
+    seats: 15,
+    startAt: "2026-10-26T18:00:00+01:00",
+    endAt: "2026-12-01T00:00:00+01:00",
+  },
+  {
+    name: "Black Friday",
+    price: 30,
+    seats: 15,
+    startAt: "2026-11-23T00:30:00+01:00",
+    endAt: "2026-12-01T00:00:00+01:00",
+    hiddenUntilStart: true,
+  },
+  {
+    name: "Standard",
+    price: 50,
+    seats: 10,
+    startAt: "2026-12-01T00:00:00+01:00",
+    endAt: "2026-12-04T18:00:00+01:00",
+  },
 ];
 
 export const faqs = [
   {
     question: "Cosa include il biglietto?",
-    answer: [
-      "Comprando un biglietto per Startup Weekend:",
-      "1. Impari a trasformare un’idea in un progetto imprenditoriale",
-      "2. Incontri e collabori con altri possibili co-founder",
-      "3. Hai accesso a un gruppo riservato di top mentor",
-      "4. Partecipi a workshop sulle competenze chiave per creare una startup",
-      "5. Impari a pitchare il tuo progetto a una giuria di imprenditori e investor",
-      "6. Espandi drasticamente il tuo network",
-      "7. Hai tutti i pasti inclusi: colazioni, pranzi, cene, snack, drink, dal venerdì alla domenica.",
-    ].join("\n"),
+    answer:
+      "Tutte le 54 ore di evento: pitch, workshop, mentoring, pitch finale davanti alla giuria e la gara per i premi. E tutti i pasti, dal venerdì sera alla domenica.",
+  },
+  {
+    question: "Quanto costa?",
+    answer:
+      "Prima compri, meno paghi: il prezzo sale a ogni lotto. Trovi il prezzo in vigore nella sezione Biglietti.",
   },
   {
     question: "Quali pasti sono inclusi?",
     answer:
-      "Cena del venerdì. Colazione, pranzo e cena del sabato. Colazione, pranzo e aperitivo della domenica. Se hai allergie o segui particolari regimi alimentari, segnalacelo nel form di acquisto dei biglietti.",
+      "Tutti: cena del venerdì, colazione, pranzo e cena del sabato, colazione, pranzo e aperitivo della domenica, più snack e drink. Allergie o diete particolari? Segnalale al momento dell’acquisto.",
   },
   {
-    question: "Devo presentare un’idea per partecipare?",
+    question: "Devo avere un’idea?",
     answer:
-      "No, ma vi invitiamo a farlo. Potete proporre un’idea a cui state pensando da anni, o qualcosa che vi viene in mente all’ultimo minuto durante l’evento. Non proponete un’idea che avete già sviluppato o su cui avete lavorato al di fuori dello Startup Weekend. Lo scopo dell’evento è imparare a passare dall’ideazione al prodotto. Il pitching fornisce una preziosa pratica per parlare in pubblico. Non vi pentirete di averlo fatto, ma potreste pentirvi di non averlo fatto.",
+      "No. Puoi presentarne una il venerdì oppure unirti al team di qualcun altro.",
   },
   {
-    question: "Posso portare come idea la startup che ho fondato?",
+    question: "Posso venire da solo?",
     answer:
-      "No, questa è una competizione per idee embrionali. Se la tua idea è già pubblicata e presente online (sito, pagine social) e ci stai già lavorando, non sarà ammessa alla competizione. Ma non temere, ne puoi proporre un’altra.",
+      "Sì, ci si iscrive singolarmente e i team si formano durante l’evento, il venerdì sera.",
   },
   {
-    question: "Ho bisogno di un team o posso iscrivermi da solo?",
+    question: "Posso portare la mia startup già avviata?",
     answer:
-      "La competizione è per singoli. Puoi partecipare con i tuoi amici, ma dovrete iscrivervi singolarmente. Durante l’evento, dopo la presentazione delle idee, verranno formati i team. Il team ideale è composto da membri con background ed esperienze diverse che collaborano.",
+      "No, la competizione è per idee nuove. Se ci stai già lavorando (sito, social, prodotto) non è ammessa, ma puoi proporne un’altra.",
   },
   {
-    question: "Questo evento è adatto a me?",
+    question: "Che esperienza serve?",
     answer:
-      "Se siete interessati all’imprenditorialità, la risposta è molto probabilmente sì. Sia che siate imprenditori seriali o nuovi nella scena delle startup, vi troverete bene, purché siate motivati a costruire un prodotto o una startup e siate aperti a nuove idee. Crediamo che le grandi idee possano provenire da qualsiasi luogo. L’evento vuole essere un forum collaborativo e inclusivo per condividere, imparare, costruire e divertirsi. Diamo il benvenuto a tutti, indipendentemente dall’esperienza, dal settore o dal background.",
+      "Nessuna in particolare. Studenti, professionisti, sviluppatori, designer e curiosi: conta la voglia di mettersi in gioco.",
   },
   {
-    question: "Perché dovrei partecipare?",
+    question: "Posso partecipare solo ad alcune giornate?",
     answer:
-      "Durante l’evento, i partecipanti hanno l’opportunità di trasformare le loro idee in prototipi, di apprendere nuove competenze e di incontrare altri imprenditori. Inoltre possono chiedere consigli ai mentors, che sono imprenditori o persone esperte nell’ambiente startup: saranno ben felici di condividere le loro conoscenze ed esperienze.",
+      "No, il biglietto copre l’intero weekend ed è pensato per essere vissuto dall’inizio alla fine.",
   },
 ];
 
@@ -278,6 +385,7 @@ export const edition2026: Edition = {
   venue: "Fortezza del Priamar, Savona",
   startAt: "2026-12-04T18:00:00+01:00",
   ticketUrl: "https://dub.sh/sws26site",
+  tickets: tickets2026,
   ticketLabel: "Compra il tuo biglietto",
   brochureUrl,
   mapUrl,
@@ -378,7 +486,7 @@ export const edition2026: Edition = {
       ],
     },
   ],
-  prizesNote: "And more are coming…",
+  prizesNote: "Altri premi in arrivo.",
   agenda: agenda2026,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
@@ -387,7 +495,6 @@ export const edition2026: Edition = {
       { name: "Azimut Capital Management", image: "/images/sponsors/azimut.png" },
       { name: "Fondazione De Mari", image: "/images/sponsors/fmd.png" },
     ]),
-    group("Local Sponsors", [], true),
     group("Partners", [
       { name: "Talent Garden", image: "/images/sponsors/tag.svg" },
       {
@@ -405,7 +512,7 @@ export const edition2026: Edition = {
     group("Patrocinio", patrocinioBase),
   ],
   peopleComingSoon: false,
-  peopleMoreComing: true,
+  peopleMoreComing: false,
   recap:
     "La terza edizione a Savona: 4–6 dicembre 2026 alla Fortezza del Priamar, con premi da Startup Legal, Bird & Bird, Talent Garden, BAC Savona, Francesco Gruner e Fondazione Genova Startup ETS.",
 };
@@ -551,7 +658,6 @@ export const edition2025: Edition = {
       ],
     },
   ],
-  prizesNote: "And more are coming…",
   agenda: agenda2025,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),
@@ -743,7 +849,6 @@ export const edition2024: Edition = {
       ],
     },
   ],
-  prizesNote: "And more are coming…",
   agenda: agenda2024,
   sponsorGroups: [
     group("Global Sponsors", globalSponsors),

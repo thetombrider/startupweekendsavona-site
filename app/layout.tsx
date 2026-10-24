@@ -37,7 +37,6 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "it_IT",
     type: "website",
-    images: [{ url: "/images/gallery/hero-2026.jpg", width: 2400, height: 1600 }],
   },
   twitter: {
     card: "summary_large_image",
