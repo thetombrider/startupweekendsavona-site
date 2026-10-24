@@ -40,8 +40,8 @@ export function EventPage({ edition }: { edition: Edition }) {
       <StatsBand />
       <HowItWorks />
       <Alumni />
-      <Prizes edition={edition} />
       <Food />
+      <Prizes edition={edition} />
       {tiers ? (
         <TicketsSection
           edition={edition}
@@ -411,7 +411,7 @@ function Alumni() {
 
 function Food() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="pb-24 sm:pb-32">
       <Container>
         <div className="grid gap-10 rounded-[2rem] border border-line bg-white p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
