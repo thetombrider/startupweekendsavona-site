@@ -453,6 +453,21 @@ export const edition2026: Edition = {
       role: "Senior Innovation Manager · Technology Transfer @ IIT",
       image: "/images/people/molinari.jpg",
     },
+    {
+      name: "Valentina Zamora",
+      role: "Founder @ Stealth Startup · ex Vento",
+      image: "/images/people/zamora.jpg",
+    },
+    {
+      name: "Arianna Fossati",
+      role: "Founder @ Stealth Startup · ex Vento",
+      image: "/images/people/fossati.jpg",
+    },
+    {
+      name: "Vittoria Casanova",
+      role: "Strategy @ Casanova SRL · Design Expert",
+      image: "/images/people/casanova.jpg",
+    },
   ],
   facilitator: facilitatorNox,
   prizes: [
