@@ -17,7 +17,6 @@ import type { Edition, Person } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
-import { Logo } from "./logo";
 import { PriceUrgency, StickyTicketBar, TicketTiers } from "./tickets";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
 
@@ -81,24 +80,13 @@ function Hero({
   fallbackNow: number;
 }) {
   return (
-    <section className="relative isolate min-h-[100svh] overflow-hidden bg-ink text-paper">
-      <Image
-        src={edition.heroImage}
-        alt="Partecipanti di Startup Weekend Savona"
-        fill
-        priority
-        quality={85}
-        className="object-cover object-center opacity-40"
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/55 to-ink" />
-      <div className="pointer-events-none absolute -top-24 right-[-8%] font-display text-[38vw] leading-none font-bold text-white/[0.04] select-none">
+    <section className="relative isolate overflow-hidden bg-ink text-paper">
+      <div className="pointer-events-none absolute -top-24 right-[-8%] font-display text-[38vw] leading-none font-bold text-white/[0.03] select-none">
         54
       </div>
 
-      <Container className="relative flex min-h-[100svh] flex-col justify-end pb-16 pt-28 sm:pb-20">
-        <div className="max-w-4xl">
-          <Logo className="mb-8 h-14 w-auto sm:h-[4.5rem]" />
+      <Container className="relative grid items-center gap-10 pt-28 pb-16 sm:pb-20 lg:min-h-[100svh] lg:pt-24 lg:pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div>
           {!edition.isCurrent ? (
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-[0.2em] text-blue uppercase">
               Archivio · Edizione {edition.year}
@@ -107,7 +95,7 @@ function Hero({
           <p className="text-xs tracking-[0.32em] text-blue uppercase">
             {edition.kicker}
           </p>
-          <h1 className="font-display mt-4 max-w-4xl text-4xl leading-[0.95] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="font-display mt-4 text-4xl leading-[0.95] font-semibold tracking-tight sm:text-6xl xl:text-7xl">
             {edition.headline}
           </h1>
           <p className="mt-6 max-w-xl text-lg text-white/75">
@@ -119,39 +107,72 @@ function Hero({
                 tiers={edition.tickets}
                 fallbackNow={fallbackNow}
                 eventStart={edition.startAt}
-              />
+              >
+                <HeroActions edition={edition} ticketHref={ticketHref} />
+              </PriceUrgency>
+            </div>
+          ) : (
+            <div className="mt-8">
+              <HeroActions edition={edition} ticketHref={ticketHref} />
+            </div>
+          )}
+          {edition.isCurrent && !edition.tickets ? (
+            <div className="mt-14 max-w-xl">
+              <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
+                Manca
+              </p>
+              <Countdown target={edition.startAt} />
             </div>
           ) : null}
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink
-              href={ticketHref}
-              variant="accent"
-              external={edition.isCurrent}
-              className="!py-4 text-base"
-              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
-              trackPosition="hero"
-            >
-              {edition.ticketLabel}
-              <ArrowIcon />
-            </ButtonLink>
-            {edition.isCurrent ? (
-              <ButtonLink href="#come-funziona" variant="ghost" className="!py-4">
-                Come funziona
-              </ButtonLink>
-            ) : null}
-          </div>
         </div>
 
-        {edition.isCurrent && !edition.tickets ? (
-          <div className="mt-14 max-w-xl">
-            <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
-              Manca
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] lg:aspect-[4/5]">
+          <Image
+            src={edition.heroImage}
+            alt="Partecipanti di Startup Weekend Savona"
+            fill
+            priority
+            quality={80}
+            className="object-cover object-center"
+            sizes="(min-width: 1024px) 45vw, 100vw"
+          />
+          {edition.isCurrent ? (
+            <p className="absolute bottom-4 left-4 rounded-full bg-ink/80 px-4 py-2 text-xs font-semibold text-paper backdrop-blur-md sm:text-sm">
+              80+ partecipanti nelle edizioni passate
             </p>
-            <Countdown target={edition.startAt} />
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </Container>
     </section>
+  );
+}
+
+function HeroActions({
+  edition,
+  ticketHref,
+}: {
+  edition: Edition;
+  ticketHref: string;
+}) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row">
+      <ButtonLink
+        href={ticketHref}
+        variant="accent"
+        external={edition.isCurrent}
+        className="!py-4 text-base"
+        trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+        trackPosition="hero"
+      >
+        {edition.ticketLabel}
+        <ArrowIcon />
+      </ButtonLink>
+      {edition.isCurrent ? (
+        <ButtonLink href="#come-funziona" variant="ghost" className="!py-4">
+          Come funziona
+        </ButtonLink>
+      ) : null}
+    </div>
   );
 }
 

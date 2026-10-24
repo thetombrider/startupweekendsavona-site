@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ticketIncludes } from "@/lib/content";
 import {
   formatPrice,
@@ -203,10 +203,12 @@ export function PriceUrgency({
   tiers,
   fallbackNow,
   eventStart,
+  children,
 }: {
   tiers: TicketTier[];
   fallbackNow: number;
   eventStart: string;
+  children?: ReactNode;
 }) {
   const { current, next, nextFollowsCurrent } = useTicketState(
     tiers,
@@ -220,6 +222,7 @@ export function PriceUrgency({
           Manca
         </p>
         <Countdown target={eventStart} />
+        {children ? <div className="mt-6">{children}</div> : null}
       </div>
     );
   }
@@ -254,7 +257,7 @@ export function PriceUrgency({
             : `${tier.seats} biglietti dal ${formatTierDate(tier.startAt)}`}
         </p>
       </div>
-      <p className="mt-5 mb-3 text-sm font-semibold text-paper sm:text-base">
+      <p className="mt-4 mb-3 text-sm font-semibold text-paper sm:text-base">
         {rising
           ? `Il prezzo sale a ${formatPrice(rising.price)} tra:`
           : current
@@ -262,6 +265,7 @@ export function PriceUrgency({
             : "In vendita tra:"}
       </p>
       <Countdown target={current ? current.endAt : tier.startAt} />
+      {children ? <div className="mt-5">{children}</div> : null}
     </div>
   );
 }
