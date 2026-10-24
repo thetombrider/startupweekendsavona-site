@@ -17,6 +17,7 @@ import type { Edition, Person } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
+import { YouTubeFacade } from "./youtube-facade";
 import { PriceUrgency, StickyTicketBar, TicketTiers } from "./tickets";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
 
@@ -774,15 +775,12 @@ function Moments({
         body="Studenti, sviluppatori, designer e professionisti: c’è chi arriva con un’idea e chi senza."
       />
       <Container className="mt-12 grid gap-3 lg:grid-cols-[minmax(0,5fr)_minmax(0,12fr)]">
-        {edition.reelUrl ? (
-          <div className="order-last mx-auto mt-3 aspect-[9/16] w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] bg-ink lg:order-none lg:mt-0 lg:aspect-auto lg:h-full lg:max-w-none">
-            <iframe
-              className="h-full w-full"
-              src={edition.reelUrl}
+        {edition.reel ? (
+          <div className="relative order-last mx-auto mt-3 aspect-[9/16] w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] bg-ink lg:order-none lg:mt-0 lg:aspect-auto lg:h-full lg:max-w-none">
+            <YouTubeFacade
+              id={edition.reel.youtubeId}
+              poster={edition.reel.poster}
               title="Reel Startup Weekend Savona"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
             />
           </div>
         ) : null}
@@ -948,6 +946,8 @@ function Sponsors({ edition }: { edition: Edition }) {
                     <img
                       src={sponsor.image}
                       alt={sponsor.name}
+                      loading="lazy"
+                      decoding="async"
                       className="max-h-14 max-w-full object-contain"
                     />
                   </div>

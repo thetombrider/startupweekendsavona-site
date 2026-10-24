@@ -423,7 +423,10 @@ export const edition2026: Edition = {
       caption: "Aperitivo finale",
     },
   ],
-  reelUrl: "https://www.youtube-nocookie.com/embed/98QOWS6iXyI",
+  reel: {
+    youtubeId: "98QOWS6iXyI",
+    poster: "/images/gallery/reel-poster.jpg",
+  },
   jury: [
     {
       name: "Francesco Lato",

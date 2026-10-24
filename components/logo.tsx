@@ -24,8 +24,8 @@ export function Logo({
             : "/images/brand/lockup.png"
         }
         alt="Techstars Startup Weekend Savona"
-        width={1600}
-        height={549}
+        width={350}
+        height={120}
         priority={priority}
         className={cn("w-auto", className ?? "h-9 sm:h-11")}
       />
