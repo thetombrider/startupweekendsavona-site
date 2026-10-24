@@ -62,7 +62,7 @@ export type Edition = {
   aboutImage: string;
   gallery: string[];
   moments?: { image: string; when: string; caption: string }[];
-  reelUrl?: string;
+  reel?: { youtubeId: string; poster: string };
   recapVideoUrl?: string;
   jury: Person[];
   mentors: Person[];
