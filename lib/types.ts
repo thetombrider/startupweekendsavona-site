@@ -54,6 +54,8 @@ export type Edition = {
   venue: string;
   startAt: string;
   ticketUrl?: string;
+  eventbriteEventId?: string;
+  ticketUtm?: Record<string, string>;
   tickets?: TicketTier[];
   ticketLabel: string;
   brochureUrl: string;
