@@ -387,6 +387,12 @@ export const edition2026: Edition = {
   venue: "Fortezza del Priamar, Savona",
   startAt: "2026-12-04T18:00:00+01:00",
   ticketUrl: "https://dub.sh/sws26site",
+  eventbriteEventId: "2002076341231",
+  ticketUtm: {
+    utm_source: "sito",
+    utm_medium: "checkout-embedded",
+    utm_campaign: "sws26",
+  },
   tickets: tickets2026,
   ticketLabel: "Compra il tuo biglietto",
   brochureUrl,
