@@ -19,7 +19,12 @@ import { ArrowIcon, ButtonLink } from "./ui";
 
 function useTicketState(tiers: TicketTier[], fallbackNow: number) {
   const now = useNow() || fallbackNow;
-  return { now, ...getTicketState(tiers, now) };
+  const state = getTicketState(tiers, now);
+  const rising =
+    state.current && state.next && state.next.price > state.current.price
+      ? state.next
+      : undefined;
+  return { now, rising, ...state };
 }
 
 export function TicketTiers({
@@ -37,6 +42,7 @@ export function TicketTiers({
     current,
     next,
     nextFollowsCurrent,
+    rising,
     totalSeats,
   } = useTicketState(tiers, fallbackNow);
 
@@ -61,13 +67,13 @@ export function TicketTiers({
             </div>
             <p className="mt-4 text-base text-white/80">
               Solo {current.seats} biglietti a questo prezzo.{" "}
-              {nextFollowsCurrent && next ? "Tra " : "Il lotto chiude tra "}
+              {rising
+                ? `Il prezzo sale a ${formatPrice(rising.price)} tra `
+                : "Il lotto chiude tra "}
               <span className="font-semibold text-paper">
                 {formatTimeLeft(current.endAt, now)}
               </span>
-              {nextFollowsCurrent && next
-                ? `, poi il prezzo sale a ${formatPrice(next.price)}.`
-                : "."}
+              .
             </p>
           </>
         ) : next ? (
@@ -210,10 +216,11 @@ export function PriceUrgency({
   eventStart: string;
   children?: ReactNode;
 }) {
-  const { current, next, nextFollowsCurrent } = useTicketState(
+  const { current, next, nextFollowsCurrent, rising } = useTicketState(
     tiers,
     fallbackNow,
   );
+  const struck = nextFollowsCurrent ? rising : undefined;
 
   if (!current && !next) {
     return (
@@ -228,7 +235,6 @@ export function PriceUrgency({
   }
 
   const tier = current ?? next!;
-  const rising = current && next && nextFollowsCurrent ? next : undefined;
 
   return (
     <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink p-5 shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] sm:p-7">
@@ -244,9 +250,9 @@ export function PriceUrgency({
             <p className="font-display text-5xl leading-none font-semibold tracking-tight text-paper sm:text-6xl">
               {formatPrice(tier.price)}
             </p>
-            {rising ? (
+            {struck ? (
               <p className="pb-1 text-xl text-white/50 line-through decoration-blue/80 sm:text-2xl">
-                {formatPrice(rising.price)}
+                {formatPrice(struck.price)}
               </p>
             ) : null}
           </div>
@@ -279,7 +285,7 @@ export function StickyTicketBar({
   ticketUrl: string;
   fallbackNow: number;
 }) {
-  const { now, current, next, nextFollowsCurrent } = useTicketState(
+  const { now, current, next, rising } = useTicketState(
     tiers,
     fallbackNow,
   );
@@ -321,8 +327,8 @@ export function StickyTicketBar({
                 : "Startup Weekend Savona"}
           </p>
           <p className="truncate text-xs text-white/60">
-            {current && next && nextFollowsCurrent
-              ? `Sale a ${formatPrice(next.price)} tra ${formatTimeLeft(current.endAt, now)}`
+            {current && rising
+              ? `Sale a ${formatPrice(rising.price)} tra ${formatTimeLeft(current.endAt, now)}`
               : current
                 ? `Chiude tra ${formatTimeLeft(current.endAt, now)}`
                 : next
