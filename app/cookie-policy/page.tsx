@@ -48,8 +48,7 @@ export default function CookiePolicyPage() {
                 Se accetti, carichiamo il Meta Pixel di Meta Platforms Ireland
                 Ltd. Imposta cookie come <code>_fbp</code> e ci permette di
                 misurare l’efficacia delle campagne su Facebook e Instagram
-                (visite, click sui biglietti, acquisti) e di mostrarti annunci
-                pertinenti. Meta tratta questi dati secondo la propria{" "}
+                (visite, click sui biglietti, acquisti). Meta tratta questi dati secondo la propria{" "}
                 <a
                   href="https://www.facebook.com/privacy/policy/"
                   className="text-blue hover:underline"

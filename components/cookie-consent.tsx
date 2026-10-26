@@ -50,8 +50,8 @@ export function CookieConsent() {
       className="fixed inset-x-3 bottom-3 z-50 rounded-2xl border border-white/10 bg-ink p-5 text-paper shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md"
     >
       <p className="text-sm leading-relaxed text-white/80">
-        Usiamo cookie di Meta per misurare le nostre campagne e mostrarti
-        annunci pertinenti. Il sito funziona anche se li rifiuti.{" "}
+        Usiamo cookie di Meta per misurare le nostre campagne. Il sito
+        funziona anche se li rifiuti.{" "}
         <Link href="/cookie-policy" className="text-blue hover:underline">
           Cookie policy
         </Link>
