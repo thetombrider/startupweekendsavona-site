@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
+import { CookiePreferencesButton } from "./cookie-consent";
 import { Logo } from "./logo";
 import { Container } from "./ui";
 
@@ -66,7 +67,13 @@ export function SiteFooter({ edition }: { edition: Edition }) {
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-2 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {site.name}. Powered by Techstars.</p>
-          <p>{edition.venue}</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href="/cookie-policy" className="hover:text-paper">
+              Cookie policy
+            </Link>
+            <CookiePreferencesButton className="hover:text-paper" />
+            <span>{edition.venue}</span>
+          </div>
         </Container>
       </div>
     </footer>
