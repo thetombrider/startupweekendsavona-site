@@ -2,7 +2,9 @@
 
 import Script from "next/script";
 import { useEffect, useRef } from "react";
-import { TICKET_EVENT } from "@/lib/tickets";
+import { trackPixel } from "@/lib/meta-pixel";
+import { getTicketState, TICKET_EVENT } from "@/lib/tickets";
+import type { TicketTier } from "@/lib/types";
 
 const TRIGGER_ID = "eventbrite-checkout-trigger";
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign"];
@@ -21,23 +23,28 @@ declare global {
 export function EventbriteCheckout({
   eventId,
   utm,
+  tiers,
 }: {
   eventId: string;
   utm: Record<string, string>;
+  tiers: TicketTier[];
 }) {
   const ready = useRef(false);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (!ready.current || e.defaultPrevented) return;
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
-        return;
-      }
+      if (e.defaultPrevented) return;
       const link = (e.target as Element | null)?.closest?.(
         `a[data-umami-event="${TICKET_EVENT}"]`,
       );
+      if (!link) return;
+      trackPixel("InitiateCheckout", { currency: "EUR" });
+      if (!ready.current) return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
       const trigger = document.getElementById(TRIGGER_ID);
-      if (!link || !trigger) return;
+      if (!trigger) return;
       e.preventDefault();
       trigger.click();
     }
@@ -58,7 +65,15 @@ export function EventbriteCheckout({
       extraParams: hasPageUtm
         ? undefined
         : Object.entries(utm).map(([name, value]) => ({ name, value })),
-      onOrderComplete: () => window.umami?.track("ticket-purchase"),
+      onOrderComplete: (order?: { orderId?: string }) => {
+        window.umami?.track("ticket-purchase");
+        const tier = getTicketState(tiers, Date.now()).current;
+        trackPixel(
+          "Purchase",
+          { currency: "EUR", value: tier?.price ?? 0, content_name: tier?.name },
+          order?.orderId ? { eventID: `eventbrite-${order.orderId}` } : undefined,
+        );
+      },
     });
     ready.current = true;
   }
