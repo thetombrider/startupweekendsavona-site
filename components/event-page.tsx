@@ -278,6 +278,7 @@ function About({
               width={1024}
               height={683}
               className="h-full w-full object-cover"
+              sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </div>
           <div className="absolute -bottom-6 -left-4 max-w-[220px] rounded-2xl bg-ink p-4 text-paper shadow-xl">
@@ -788,7 +789,7 @@ function Moments({
           {edition.moments?.map((moment) => (
             <figure
               key={moment.image}
-              className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]"
+              className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-paper-2"
             >
               <Image
                 src={moment.image}
@@ -839,7 +840,7 @@ function Gallery({ edition }: { edition: Edition }) {
         {edition.gallery.map((src) => (
           <div
             key={src}
-            className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]"
+            className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-paper-2"
           >
             <Image
               src={src}
@@ -856,7 +857,7 @@ function Gallery({ edition }: { edition: Edition }) {
 }
 
 function VideoRecap({ edition }: { edition: Edition }) {
-  if (!edition.recapVideoUrl) return null;
+  if (!edition.recapVideo) return null;
 
   return (
     <section id="video" className="scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
@@ -868,14 +869,12 @@ function VideoRecap({ edition }: { edition: Edition }) {
       />
       <Container className="mt-12">
         <div className="mx-auto max-w-5xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-black shadow-2xl">
-          <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={edition.recapVideoUrl}
+          <div className="relative aspect-video">
+            <YouTubeFacade
+              id={edition.recapVideo.youtubeId}
+              poster={edition.recapVideo.poster}
               title={`Video recap Startup Weekend Savona ${edition.year}`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
+              sizes="(min-width: 1024px) 64rem, 100vw"
             />
           </div>
         </div>
