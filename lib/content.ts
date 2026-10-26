@@ -129,14 +129,14 @@ const tickets2026: TicketTier[] = [
     price: 25,
     seats: 10,
     startAt: "2026-10-10T00:00:00+02:00",
-    endAt: "2026-10-26T18:00:00+01:00",
+    endAt: "2026-10-26T00:00:00+01:00",
   },
   {
     name: "Early Bird",
     price: 35,
     seats: 15,
-    startAt: "2026-10-26T18:00:00+01:00",
-    endAt: "2026-11-09T18:00:00+01:00",
+    startAt: "2026-10-26T00:00:00+01:00",
+    endAt: "2026-11-23T18:00:00+01:00",
   },
   {
     name: "Black Friday",
