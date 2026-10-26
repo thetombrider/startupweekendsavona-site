@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     qualities: [85, 75],
+    minimumCacheTTL: 2678400,
   },
   async redirects() {
     return [

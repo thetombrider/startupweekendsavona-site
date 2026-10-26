@@ -586,7 +586,10 @@ export const edition2025: Edition = {
   mapUrl,
   heroImage: "/images/gallery/g1.jpg",
   aboutImage: "/images/gallery/g2.jpg",
-  recapVideoUrl: "https://www.youtube.com/embed/ODC_vrYyYK0",
+  recapVideo: {
+    youtubeId: "ODC_vrYyYK0",
+    poster: "/images/gallery/recap-2025.jpg",
+  },
   gallery: [
     "/images/gallery/g1.jpg",
     "/images/gallery/g2.jpg",
@@ -774,7 +777,10 @@ export const edition2024: Edition = {
   mapUrl,
   heroImage: "/images/gallery/hero.jpg",
   aboutImage: "/images/gallery/g7.jpg",
-  recapVideoUrl: "https://www.youtube.com/embed/ZrKLskbTd1M",
+  recapVideo: {
+    youtubeId: "ZrKLskbTd1M",
+    poster: "/images/gallery/recap-2024.jpg",
+  },
   gallery: [
     "/images/gallery/hero.jpg",
     "/images/gallery/g5.jpg",
