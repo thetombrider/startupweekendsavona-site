@@ -513,7 +513,7 @@ export const edition2026: Edition = {
         "30 giorni di ingresso gratuito a Talent Garden Genova",
         "Un posto in una pitch night di BAC Savona nel 2027",
         "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
-        "Realizzazione della brand identity",
+        "Realizzazione della brand identity by QUI. Collettivo",
       ],
     },
     {
@@ -525,7 +525,7 @@ export const edition2026: Edition = {
         "3h di consulenza AI by Francesco Gruner",
         "Un posto in una pitch night di BAC Savona nel 2027",
         "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
-        "Realizzazione della brand identity",
+        "Realizzazione della brand identity by QUI. Collettivo",
       ],
     },
     {
@@ -536,7 +536,7 @@ export const edition2026: Edition = {
         "2h di consulenza AI by Francesco Gruner",
         "Un posto in una pitch night di BAC Savona nel 2027",
         "3 sessioni di brainstorming con gli esperti del network by Fondazione Genova Startup ETS",
-        "Realizzazione della brand identity",
+        "Realizzazione della brand identity by QUI. Collettivo",
       ],
     },
   ],
