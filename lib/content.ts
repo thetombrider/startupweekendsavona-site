@@ -477,11 +477,6 @@ export const edition2026: Edition = {
       image: "/images/people/giacomini.jpg",
     },
     {
-      name: "Marco Franciosa",
-      role: "Investor @ Italian Founders Fund",
-      image: "/images/people/franciosa-twinkly.jpg",
-    },
-    {
       name: "Miriam Molinari",
       role: "Senior Innovation Manager · Technology Transfer @ IIT",
       image: "/images/people/molinari.jpg",
@@ -495,11 +490,6 @@ export const edition2026: Edition = {
       name: "Arianna Fossati",
       role: "Founder @ Stealth Startup · ex Vento",
       image: "/images/people/fossati.jpg",
-    },
-    {
-      name: "Vittoria Casanova",
-      role: "Strategy @ Casanova SRL · Design Expert",
-      image: "/images/people/casanova.jpg",
     },
   ],
   facilitator: facilitatorNox,
@@ -548,6 +538,12 @@ export const edition2026: Edition = {
       { name: "ABREMAR", image: "/images/sponsors/abremar.png" },
       { name: "Azimut Capital Management", image: "/images/sponsors/azimut.png" },
       { name: "Fondazione De Mari", image: "/images/sponsors/fmd.png" },
+    ]),
+    group("Local Sponsors", [
+      {
+        name: "Unione Industriali",
+        image: "/images/sponsors/unione-industriali.jpg",
+      },
     ]),
     group("Partners", [
       { name: "Talent Garden", image: "/images/sponsors/tag.svg" },
