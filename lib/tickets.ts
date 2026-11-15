@@ -17,6 +17,9 @@ export type TicketState = {
 
 const time = (iso: string) => new Date(iso).getTime();
 
+/** A pause up to this long between two tiers still counts as back-to-back. */
+const MAX_TIER_GAP_MS = 60 * 60 * 1000;
+
 function statusAt(tier: TicketTier, now: number): TierStatus {
   if (now >= time(tier.endAt)) return "past";
   return now >= time(tier.startAt) ? "active" : "upcoming";
@@ -51,7 +54,9 @@ export function getTicketState(tiers: TicketTier[], now: number): TicketState {
     current,
     next,
     nextFollowsCurrent:
-      !!current && !!next && time(next.startAt) === time(current.endAt),
+      !!current &&
+      !!next &&
+      time(next.startAt) - time(current.endAt) <= MAX_TIER_GAP_MS,
     totalSeats: tiers.reduce((sum, tier) => sum + tier.seats, 0),
   };
 }
