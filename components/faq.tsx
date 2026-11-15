@@ -2,10 +2,19 @@
 
 import { useState } from "react";
 import { faqs } from "@/lib/content";
+import { getTicketState } from "@/lib/tickets";
+import type { TicketTier } from "@/lib/types";
+import { useNow } from "@/lib/use-now";
 import { cn } from "@/lib/utils";
 
-export function Faq() {
+export function Faq({ tiers }: { tiers?: TicketTier[] }) {
   const [open, setOpen] = useState<number | null>(0);
+  const now = useNow();
+  const { current, next } = getTicketState(tiers ?? [], now);
+  const promo =
+    now && current?.hiddenUntilStart && next && next.price > current.price
+      ? { current, next }
+      : undefined;
 
   return (
     <div className="mx-auto max-w-3xl divide-y divide-line rounded-3xl border border-line bg-white/50">
@@ -32,7 +41,9 @@ export function Faq() {
             </button>
             {isOpen ? (
               <p className="whitespace-pre-line px-6 pb-6 text-sm leading-relaxed text-muted sm:text-base">
-                {item.answer}
+                {promo && "promoAnswer" in item && item.promoAnswer
+                  ? item.promoAnswer(promo.current, promo.next)
+                  : item.answer}
               </p>
             ) : null}
           </div>

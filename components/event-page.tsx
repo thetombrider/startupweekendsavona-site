@@ -13,7 +13,7 @@ import {
   valueProps,
 } from "@/lib/content";
 import { TICKET_EVENT } from "@/lib/tickets";
-import type { Edition, Person } from "@/lib/types";
+import type { Edition, Person, TicketTier } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
@@ -62,7 +62,7 @@ export function EventPage({ edition }: { edition: Edition }) {
       <PastEditionRecap edition={edition} />
       <Press />
       <Sponsors edition={edition} />
-      <FaqSection />
+      <FaqSection tiers={tiers} />
       <FinalCta edition={edition} ticketHref={ticketHref} />
       {tiers ? (
         <StickyTicketBar
@@ -959,12 +959,12 @@ function Sponsors({ edition }: { edition: Edition }) {
   );
 }
 
-function FaqSection() {
+function FaqSection({ tiers }: { tiers?: TicketTier[] }) {
   return (
     <section id="faq" className="scroll-mt-24 py-24 sm:py-32">
       <SectionHeading eyebrow="FAQ" title="Tutto quello che serve sapere" />
       <Container className="mt-12">
-        <Faq />
+        <Faq tiers={tiers} />
       </Container>
     </section>
   );

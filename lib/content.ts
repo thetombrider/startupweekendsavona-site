@@ -6,6 +6,7 @@ import type {
   SponsorGroup,
   TicketTier,
 } from "./types";
+import { formatPrice, formatTierDate, type TierView } from "./tickets";
 
 export const site = {
   name: "Startup Weekend Savona",
@@ -143,14 +144,14 @@ const tickets2026: TicketTier[] = [
     price: 30,
     seats: 15,
     startAt: "2026-11-23T00:00:00+01:00",
-    endAt: "2026-11-30T18:00:00+01:00",
+    endAt: "2026-11-30T23:30:00+01:00",
     hiddenUntilStart: true,
   },
   {
     name: "Standard",
     price: 50,
     seats: 10,
-    startAt: "2026-11-30T18:00:00+01:00",
+    startAt: "2026-12-01T00:00:00+01:00",
     endAt: "2026-12-04T18:00:00+01:00",
   },
 ];
@@ -165,6 +166,8 @@ export const faqs = [
     question: "Quanto costa?",
     answer:
       "Prima compri, meno paghi: il prezzo sale a ogni lotto. Trovi il prezzo in vigore nella sezione Biglietti.",
+    promoAnswer: (promo: TierView, next: TierView) =>
+      `Fino al ${formatTierDate(promo.endAt)} c’è il ${promo.name}: il biglietto costa ${formatPrice(promo.price)} invece di ${formatPrice(next.price)}. Poi il prezzo sale, quindi questo è il momento giusto. Trovi i biglietti nella sezione Biglietti.`,
   },
   {
     question: "Quali pasti sono inclusi?",
