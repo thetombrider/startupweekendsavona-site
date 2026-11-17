@@ -367,7 +367,7 @@ const agenda2024: AgendaDay[] = [
 ];
 
 const facilitatorNox: Person = {
-  name: "Francesco Salvatore",
+  name: "Francesco Salvatore Nox",
   role: "Innovation Strategy Advisor · Facilitatore",
   image: "/images/people/nox.jpg",
 };
