@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { trackPixel, useConsent } from "@/lib/meta-pixel";
 import { TICKET_DISCOUNT_LABEL } from "@/lib/ticket-interest";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,7 @@ export function TicketInterest({
   const [pending, setPending] = useState(false);
   const [outcome, setOutcome] = useState<"saved" | "preview">();
   const [error, setError] = useState("");
+  const [overflowEmail, setOverflowEmail] = useState("");
   const input = useRef<HTMLInputElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const restoreFocus = useRef(false);
@@ -35,13 +36,24 @@ export function TicketInterest({
   const detailId = useId();
   const consent = useConsent();
 
+  const updateEmailOverflow = useCallback((field: HTMLInputElement) => {
+    setOverflowEmail(field.scrollWidth > field.clientWidth ? field.value : "");
+  }, []);
+
   useEffect(() => {
-    if (open) input.current?.focus();
-    else if (restoreFocus.current) {
+    if (open) {
+      const field = input.current;
+      if (!field) return;
+      field.focus();
+      const observer = new ResizeObserver(() => updateEmailOverflow(field));
+      observer.observe(field);
+      return () => observer.disconnect();
+    }
+    if (restoreFocus.current) {
       trigger.current?.focus();
       restoreFocus.current = false;
     }
-  }, [open]);
+  }, [open, outcome, updateEmailOverflow]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,42 +131,47 @@ export function TicketInterest({
             event.preventDefault();
             restoreFocus.current = true;
             setError("");
+            setOverflowEmail("");
             setOpen(false);
           }}
-          className="w-full sm:w-72"
+          className="w-full max-w-full sm:w-96"
         >
           <label htmlFor={emailId} className="sr-only">
             Indirizzo email
           </label>
-          <div className="flex min-h-12 items-center gap-1 rounded-full border border-blue bg-paper p-1 text-ink transition-shadow focus-within:ring-2 focus-within:ring-blue/50">
-            <input
-              ref={input}
-              id={emailId}
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="La tua email"
-              required
-              maxLength={254}
-              readOnly={pending}
-              aria-describedby={detailId}
-              onChange={() => error && setError("")}
-              className="min-w-0 flex-1 bg-transparent px-2 pl-3 text-base outline-none placeholder:text-muted"
-            />
-            <button
-              type="submit"
-              disabled={pending}
-              aria-label={pending ? "Invio…" : "Ricevi il codice"}
-              className="inline-flex min-h-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue px-3 text-sm font-semibold text-ink transition-colors hover:bg-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep disabled:cursor-wait disabled:opacity-70"
-            >
-              {pending ? "Invio…" : (
-                <>
-                  <span>Ricevi<span className="hidden sm:inline"> il codice</span></span>
-                  <ArrowIcon className="h-3.5 w-3.5" />
-                </>
-              )}
-            </button>
-          </div>
+          <input
+            ref={input}
+            id={emailId}
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="La tua email"
+            required
+            maxLength={254}
+            readOnly={pending}
+            aria-describedby={detailId}
+            onChange={(event) => {
+              updateEmailOverflow(event.currentTarget);
+              if (error) setError("");
+            }}
+            className="block min-h-12 w-full rounded-full border border-blue bg-paper px-4 text-base text-ink transition-shadow outline-none placeholder:text-muted focus:ring-2 focus:ring-blue/50"
+          />
+          {overflowEmail && (
+            <p aria-hidden="true" className="mt-1 wrap-anywhere px-4 text-sm text-ink">
+              {overflowEmail}
+            </p>
+          )}
+          <button
+            type="submit"
+            disabled={pending}
+            className="mt-2 inline-flex min-h-10 cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue px-3 text-sm font-semibold text-ink transition-colors hover:bg-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep disabled:cursor-wait disabled:opacity-70"
+          >
+            {pending ? "Invio…" : (
+              <>
+                Ricevi il codice <ArrowIcon className="h-3.5 w-3.5" />
+              </>
+            )}
+          </button>
           <p id={detailId} className="mt-2 text-xs leading-relaxed opacity-80">
             {DISCOUNT_DETAILS}{" "}
             <a href="/cookie-policy#aggiornamenti-biglietti" className="underline underline-offset-2">
