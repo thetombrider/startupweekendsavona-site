@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
 import { CookieConsent } from "@/components/cookie-consent";
-import { EventbriteCheckout } from "@/components/eventbrite-checkout";
-import { edition2026, site } from "@/lib/content";
+import { site } from "@/lib/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -67,13 +66,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full overscroll-none bg-paper font-sans text-ink">
         {children}
-        {edition2026.isCurrent && edition2026.eventbriteEventId ? (
-          <EventbriteCheckout
-            eventId={edition2026.eventbriteEventId}
-            utm={edition2026.ticketUtm ?? {}}
-            tiers={edition2026.tickets ?? []}
-          />
-        ) : null}
         <CookieConsent />
       </body>
     </html>

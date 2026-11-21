@@ -6,8 +6,8 @@ import { Container } from "@/components/ui";
 import { edition2026, site } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Cookie policy",
-  description: `Come ${site.name} usa cookie e strumenti di misurazione.`,
+  title: "Privacy e cookie",
+  description: `Come ${site.name} tratta i dati del sito.`,
   robots: { index: false },
 };
 
@@ -19,7 +19,7 @@ export default function CookiePolicyPage() {
         <Container className="max-w-3xl">
           <p className="text-xs tracking-[0.28em] text-blue uppercase">Privacy</p>
           <h1 className="font-display mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Cookie policy
+            Privacy e cookie
           </h1>
           <div className="mt-10 space-y-8 text-base leading-relaxed text-muted [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink">
             <section>
@@ -48,7 +48,7 @@ export default function CookiePolicyPage() {
                 Se accetti, carichiamo il Meta Pixel di Meta Platforms Ireland
                 Ltd. Imposta cookie come <code>_fbp</code> e ci permette di
                 misurare l’efficacia delle campagne su Facebook e Instagram
-                (visite, click sui biglietti, acquisti). Meta tratta questi dati secondo la propria{" "}
+                (visite e richieste del codice sconto). Meta tratta questi dati secondo la propria{" "}
                 <a
                   href="https://www.facebook.com/privacy/policy/"
                   className="text-blue hover:underline"
@@ -60,13 +60,24 @@ export default function CookiePolicyPage() {
                 . Se rifiuti, il pixel non viene caricato.
               </p>
             </section>
+            <section id="aggiornamenti-biglietti">
+              <h2>Codice sconto sui biglietti</h2>
+              <p className="mt-2">
+                Se richiedi il codice sconto, {site.organizer} usa il tuo
+                indirizzo email solo per inviarti il codice e il link per acquistare i biglietti.
+                Brevo gestisce la lista dei contatti per nostro conto. Puoi ritirare
+                il consenso in qualsiasi momento scrivendo a{" "}
+                <a href={`mailto:${site.email}`} className="text-blue hover:underline">
+                  {site.email}
+                </a>
+                . Lasciare la tua email non equivale a prenotare un biglietto.
+              </p>
+            </section>
             <section>
               <h2>Servizi di terze parti</h2>
               <p className="mt-2">
-                L’acquisto dei biglietti avviene tramite Eventbrite: quando apri
-                il checkout, Eventbrite può impostare i propri cookie secondo la
-                sua cookie policy. Il video dell’evento è ospitato su YouTube in
-                modalità privacy avanzata e viene caricato solo quando premi play.
+                Il video dell’evento è ospitato su YouTube in modalità privacy
+                avanzata e viene caricato solo quando premi play.
               </p>
             </section>
             <section>

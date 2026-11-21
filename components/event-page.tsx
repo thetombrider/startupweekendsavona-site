@@ -12,31 +12,27 @@ import {
   techstarsNetworkNote,
   valueProps,
 } from "@/lib/content";
-import { TICKET_EVENT } from "@/lib/tickets";
+import { TICKET_INTEREST_ID } from "@/lib/ticket-interest";
 import type { Edition, Person, TicketTier } from "@/lib/types";
 import { Agenda } from "./agenda";
 import { Countdown } from "./countdown";
 import { Faq } from "./faq";
 import { YouTubeFacade } from "./youtube-facade";
+import { TicketInterest } from "./ticket-interest";
 import { PriceUrgency, StickyTicketBar, TicketTiers } from "./tickets";
 import { ArrowIcon, ButtonLink, Container, SectionHeading } from "./ui";
 
 const buildTime = Date.now();
 
 export function EventPage({ edition }: { edition: Edition }) {
-  const ticketHref = edition.isCurrent ? edition.ticketUrl! : "/";
   const fallbackNow = buildTime;
   const tiers = edition.isCurrent ? edition.tickets : undefined;
 
   return (
     <main>
-      <Hero
-        edition={edition}
-        ticketHref={ticketHref}
-        fallbackNow={fallbackNow}
-      />
+      <Hero edition={edition} fallbackNow={fallbackNow} />
       <Marquee />
-      <About edition={edition} ticketHref={ticketHref} />
+      <About edition={edition} />
       <ValueProps />
       <StatsBand />
       <HowItWorks />
@@ -44,17 +40,13 @@ export function EventPage({ edition }: { edition: Edition }) {
       <Food />
       <Prizes edition={edition} />
       {tiers ? (
-        <TicketsSection
-          edition={edition}
-          ticketHref={ticketHref}
-          fallbackNow={fallbackNow}
-        />
+        <TicketsSection tiers={tiers} fallbackNow={fallbackNow} />
       ) : null}
       <PeopleSection edition={edition} />
       <Facilitator person={edition.facilitator} />
-      <AgendaSection edition={edition} ticketHref={ticketHref} />
+      <AgendaSection edition={edition} />
       {edition.moments ? (
-        <Moments edition={edition} ticketHref={ticketHref} />
+        <Moments edition={edition} />
       ) : (
         <Gallery edition={edition} />
       )}
@@ -63,25 +55,17 @@ export function EventPage({ edition }: { edition: Edition }) {
       <Press />
       <Sponsors edition={edition} />
       <FaqSection tiers={tiers} />
-      <FinalCta edition={edition} ticketHref={ticketHref} />
-      {tiers ? (
-        <StickyTicketBar
-          tiers={tiers}
-          ticketUrl={ticketHref}
-          fallbackNow={fallbackNow}
-        />
-      ) : null}
+      <FinalCta edition={edition} />
+      {tiers ? <StickyTicketBar tiers={tiers} fallbackNow={fallbackNow} /> : null}
     </main>
   );
 }
 
 function Hero({
   edition,
-  ticketHref,
   fallbackNow,
 }: {
   edition: Edition;
-  ticketHref: string;
   fallbackNow: number;
 }) {
   return (
@@ -120,12 +104,12 @@ function Hero({
                 fallbackNow={fallbackNow}
                 eventStart={edition.startAt}
               >
-                <HeroActions edition={edition} ticketHref={ticketHref} />
+                <HeroActions edition={edition} />
               </PriceUrgency>
             </div>
           ) : (
             <div className="mt-8">
-              <HeroActions edition={edition} ticketHref={ticketHref} />
+              <HeroActions edition={edition} />
             </div>
           )}
           {edition.isCurrent && !edition.tickets ? (
@@ -159,32 +143,29 @@ function Hero({
   );
 }
 
-function HeroActions({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
+function HeroActions({ edition }: { edition: Edition }) {
   return (
-    <div className="flex flex-col gap-3 sm:flex-row">
-      <ButtonLink
-        href={ticketHref}
-        variant="accent"
-        external={edition.isCurrent}
-        className="!py-4 text-base"
-        trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
-        trackPosition="hero"
-      >
-        {edition.ticketLabel}
-        <ArrowIcon />
-      </ButtonLink>
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
+      {edition.isCurrent ? (
+        <TicketInterest id={TICKET_INTEREST_ID} position="hero" />
+      ) : (
+        <EditionLink edition={edition} />
+      )}
       {edition.isCurrent ? (
         <ButtonLink href="#come-funziona" variant="ghost" className="!py-4">
           Come funziona
         </ButtonLink>
       ) : null}
     </div>
+  );
+}
+
+function EditionLink({ edition }: { edition: Edition }) {
+  return (
+    <ButtonLink href="/" variant="accent">
+      {edition.ticketLabel}
+      <ArrowIcon />
+    </ButtonLink>
   );
 }
 
@@ -216,13 +197,7 @@ function Marquee() {
   );
 }
 
-function About({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
+function About({ edition }: { edition: Edition }) {
   return (
     <section id="about" className="scroll-mt-24 py-24 sm:py-32">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -238,16 +213,7 @@ function About({
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 text-sm font-semibold">
             {edition.isCurrent ? (
-              <ButtonLink
-                href={ticketHref}
-                variant="accent"
-                external
-                trackEvent={TICKET_EVENT}
-                trackPosition="about"
-              >
-                Compra il biglietto
-                <ArrowIcon />
-              </ButtonLink>
+              <TicketInterest position="about" />
             ) : null}
             <a
               href={edition.brochureUrl}
@@ -503,39 +469,27 @@ function Press() {
 }
 
 function TicketsSection({
-  edition,
-  ticketHref,
+  tiers,
   fallbackNow,
 }: {
-  edition: Edition;
-  ticketHref: string;
+  tiers: TicketTier[];
   fallbackNow: number;
 }) {
   return (
     <section id="biglietti" className="scroll-mt-24 bg-paper-2 py-24 sm:py-32">
       <SectionHeading
         eyebrow="Biglietti"
-        title="Prima compri, meno paghi"
-        body="Il prezzo sale man mano che si avvicina l’evento e ogni lotto ha un numero fisso di posti."
+        title="Prezzi e lotti dei biglietti"
+        body="Consulta il calendario dei lotti e ricevi via email il tuo codice sconto del 10%."
       />
       <Container className="mt-12">
-        <TicketTiers
-          tiers={edition.tickets!}
-          ticketUrl={ticketHref}
-          fallbackNow={fallbackNow}
-        />
+        <TicketTiers tiers={tiers} fallbackNow={fallbackNow} />
       </Container>
     </section>
   );
 }
 
-function AgendaSection({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
+function AgendaSection({ edition }: { edition: Edition }) {
   return (
     <section id="agenda" className="scroll-mt-24 py-24 sm:py-32">
       <SectionHeading
@@ -546,16 +500,7 @@ function AgendaSection({
       <Container className="mt-12">
         <Agenda days={edition.agenda} />
         <div className="mt-12 flex justify-center">
-          <ButtonLink
-            href={ticketHref}
-            variant="accent"
-            external={edition.isCurrent}
-            trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
-            trackPosition="agenda"
-          >
-            {edition.ticketLabel}
-            <ArrowIcon />
-          </ButtonLink>
+          {edition.isCurrent ? <TicketInterest position="agenda" /> : <EditionLink edition={edition} />}
         </div>
       </Container>
     </section>
@@ -761,13 +706,7 @@ function Prizes({ edition }: { edition: Edition }) {
   );
 }
 
-function Moments({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
+function Moments({ edition }: { edition: Edition }) {
   return (
     <section className="py-24 sm:py-32">
       <SectionHeading
@@ -812,16 +751,7 @@ function Moments({
       </Container>
       {edition.isCurrent ? (
         <div className="mt-10 flex justify-center">
-          <ButtonLink
-            href={ticketHref}
-            variant="accent"
-            external
-            trackEvent={TICKET_EVENT}
-            trackPosition="moments"
-          >
-            Partecipa all’edizione {edition.year}
-            <ArrowIcon />
-          </ButtonLink>
+          <TicketInterest position="moments" />
         </div>
       ) : null}
     </section>
@@ -970,13 +900,7 @@ function FaqSection({ tiers }: { tiers?: TicketTier[] }) {
   );
 }
 
-function FinalCta({
-  edition,
-  ticketHref,
-}: {
-  edition: Edition;
-  ticketHref: string;
-}) {
+function FinalCta({ edition }: { edition: Edition }) {
   return (
     <section className="pb-24">
       <Container>
@@ -990,16 +914,7 @@ function FinalCta({
               : "La prossima edizione è nel 2026."}
           </h2>
           <div className="mt-8">
-            <ButtonLink
-              href={ticketHref}
-              variant="accent"
-              external={edition.isCurrent}
-              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
-              trackPosition="final-cta"
-            >
-              {edition.ticketLabel}
-              <ArrowIcon />
-            </ButtonLink>
+            {edition.isCurrent ? <TicketInterest position="final-cta" /> : <EditionLink edition={edition} />}
           </div>
         </div>
       </Container>

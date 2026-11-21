@@ -6,6 +6,7 @@ import type {
   SponsorGroup,
   TicketTier,
 } from "./types";
+import { TICKET_DISCOUNT_LABEL } from "./ticket-interest";
 import { formatPrice, formatTierDate, type TierView } from "./tickets";
 
 export const site = {
@@ -165,9 +166,9 @@ export const faqs = [
   {
     question: "Quanto costa?",
     answer:
-      "Prima compri, meno paghi: il prezzo sale a ogni lotto. Trovi il prezzo in vigore nella sezione Biglietti.",
+      "Il prezzo cambia in base al lotto. Nella sezione Biglietti dell’edizione in corso trovi il calendario e puoi richiedere il codice sconto del 10%.",
     promoAnswer: (promo: TierView, next: TierView) =>
-      `Fino al ${formatTierDate(promo.endAt)} c’è il ${promo.name}: il biglietto costa ${formatPrice(promo.price)} invece di ${formatPrice(next.price)}. Poi il prezzo sale, quindi questo è il momento giusto. Trovi i biglietti nella sezione Biglietti.`,
+      `Il calendario prevede il ${promo.name} a ${formatPrice(promo.price)} fino al ${formatTierDate(promo.endAt)}, poi il ${next.name} a ${formatPrice(next.price)}. Richiedi il codice sconto del 10% nella sezione Biglietti.`,
   },
   {
     question: "Quali pasti sono inclusi?",
@@ -389,15 +390,8 @@ export const edition2026: Edition = {
   datesShort: "4-5-6 Dicembre 2026",
   venue: "Fortezza del Priamar, Savona",
   startAt: "2026-12-04T18:00:00+01:00",
-  ticketUrl: "https://dub.sh/sws26site",
-  eventbriteEventId: "2002076341231",
-  ticketUtm: {
-    utm_source: "sito",
-    utm_medium: "checkout-embedded",
-    utm_campaign: "sws26",
-  },
   tickets: tickets2026,
-  ticketLabel: "Compra il tuo biglietto",
+  ticketLabel: TICKET_DISCOUNT_LABEL,
   brochureUrl,
   mapUrl,
   heroImage: "/images/gallery/hero-2026.jpg",

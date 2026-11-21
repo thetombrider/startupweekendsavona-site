@@ -2,19 +2,20 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { ticketIncludes } from "@/lib/content";
+import { TICKET_DISCOUNT_SHORT_LABEL, TICKET_INTEREST_HREF } from "@/lib/ticket-interest";
 import {
   formatPrice,
   formatTierDate,
   formatTierTime,
   formatTimeLeft,
   getTicketState,
-  TICKET_EVENT,
   type TierView,
 } from "@/lib/tickets";
 import type { TicketTier } from "@/lib/types";
 import { useNow } from "@/lib/use-now";
 import { cn } from "@/lib/utils";
 import { Countdown } from "./countdown";
+import { TicketInterest } from "./ticket-interest";
 import { ArrowIcon, ButtonLink } from "./ui";
 
 function useTicketState(tiers: TicketTier[], fallbackNow: number) {
@@ -29,11 +30,9 @@ function useTicketState(tiers: TicketTier[], fallbackNow: number) {
 
 export function TicketTiers({
   tiers,
-  ticketUrl,
   fallbackNow,
 }: {
   tiers: TicketTier[];
-  ticketUrl: string;
   fallbackNow: number;
 }) {
   const {
@@ -53,7 +52,7 @@ export function TicketTiers({
           <>
             <p className="inline-flex items-center gap-2 text-xs tracking-[0.24em] text-blue uppercase">
               <span className="h-2 w-2 animate-pulse rounded-full bg-blue" />
-              In vendita ora · {current.name}
+              Lotto in corso · {current.name}
             </p>
             <div className="mt-5 flex flex-wrap items-end gap-x-4 gap-y-2">
               <p className="font-display text-6xl font-semibold tracking-tight sm:text-7xl">
@@ -66,7 +65,7 @@ export function TicketTiers({
               ) : null}
             </div>
             <p className="mt-4 text-base text-white/80">
-              Solo {current.seats} biglietti a questo prezzo.{" "}
+              {current.seats} biglietti previsti per questo lotto.{" "}
               {rising
                 ? `Il prezzo sale a ${formatPrice(rising.price)} tra `
                 : "Il lotto chiude tra "}
@@ -99,27 +98,15 @@ export function TicketTiers({
               Biglietti
             </p>
             <p className="font-display mt-4 text-3xl font-semibold tracking-tight">
-              Controlla la disponibilità su Eventbrite
+              Codice sconto del 10%
             </p>
           </>
         )}
 
         <div className="mt-8">
-          <ButtonLink
-            href={ticketUrl}
-            variant="accent"
-            external
-            className="w-full !py-4 text-base sm:w-auto"
-            trackEvent={TICKET_EVENT}
-            trackPosition="tickets"
-          >
-            {current
-              ? `Compra a ${formatPrice(current.price)}`
-              : "Vai su Eventbrite"}
-            <ArrowIcon />
-          </ButtonLink>
-          <p className="mt-3 text-xs text-white/50">
-            {totalSeats} posti in totale · acquisto sicuro su Eventbrite
+          <TicketInterest position="tickets" className="w-full sm:w-auto" />
+          <p className="mt-3 text-xs text-white/65">
+            {totalSeats} posti previsti in totale
           </p>
         </div>
 
@@ -168,8 +155,8 @@ function TierRow({ tier, isCurrent }: { tier: TierView; isCurrent: boolean }) {
             ? "Terminato"
             : tier.status === "active"
               ? isCurrent
-                ? `In vendita · ${tier.seats} posti`
-                : `In vendita fino al ${formatTierDate(tier.endAt)}`
+                ? `In corso · ${tier.seats} posti previsti`
+                : `Fino al ${formatTierDate(tier.endAt)}`
               : `Dal ${formatTierDate(tier.startAt)}`}
         </p>
       </div>
@@ -224,7 +211,7 @@ export function PriceUrgency({
 
   if (!current && !next) {
     return (
-      <div className="max-w-2xl rounded-[1.75rem] bg-ink p-5 sm:p-7">
+      <div className="max-w-2xl rounded-[1.75rem] bg-ink p-5 text-paper sm:p-7">
         <p className="mb-3 text-xs tracking-[0.24em] text-white/50 uppercase">
           Manca
         </p>
@@ -237,14 +224,14 @@ export function PriceUrgency({
   const tier = current ?? next!;
 
   return (
-    <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink p-5 shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] sm:p-7">
+    <div className="max-w-2xl rounded-[1.75rem] border border-blue/40 bg-ink p-5 text-paper shadow-[0_30px_80px_-40px_rgba(0,153,221,0.8)] sm:p-7">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>
           <p className="inline-flex items-center gap-2 text-xs tracking-[0.24em] text-blue uppercase">
             {current ? (
               <span className="h-2 w-2 animate-pulse rounded-full bg-blue" />
             ) : null}
-            {current ? "In vendita ora" : "Prossimo lotto"} · {tier.name}
+            {current ? "Lotto in corso" : "Prossimo lotto"} · {tier.name}
           </p>
           <div className="mt-2 flex items-end gap-3">
             <p className="font-display text-5xl leading-none font-semibold tracking-tight text-paper sm:text-6xl">
@@ -259,7 +246,7 @@ export function PriceUrgency({
         </div>
         <p className="text-sm text-white/70 sm:text-right">
           {current
-            ? `Solo ${tier.seats} biglietti a questo prezzo`
+            ? `${tier.seats} posti previsti per il lotto`
             : `${tier.seats} biglietti dal ${formatTierDate(tier.startAt)}`}
         </p>
       </div>
@@ -278,11 +265,9 @@ export function PriceUrgency({
 
 export function StickyTicketBar({
   tiers,
-  ticketUrl,
   fallbackNow,
 }: {
   tiers: TicketTier[];
-  ticketUrl: string;
   fallbackNow: number;
 }) {
   const { now, current, next, rising } = useTicketState(
@@ -315,7 +300,7 @@ export function StickyTicketBar({
         "fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-paper backdrop-blur-lg transition-transform duration-300 sm:hidden",
         visible ? "translate-y-0" : "translate-y-full",
       )}
-      aria-hidden={!visible}
+      inert={!visible}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
@@ -337,15 +322,14 @@ export function StickyTicketBar({
           </p>
         </div>
         <ButtonLink
-          href={ticketUrl}
+          href={TICKET_INTEREST_HREF}
           variant="accent"
-          external
-          className="shrink-0 !px-5 !py-2.5"
-          trackEvent={TICKET_EVENT}
+          className="max-w-[62%] shrink-0 !px-4 !py-2.5 text-center leading-tight !text-ink"
+          trackEvent="ticket-interest-link"
           trackPosition="sticky-bar"
         >
-          Compra
-          <ArrowIcon />
+          {TICKET_DISCOUNT_SHORT_LABEL}
+          <ArrowIcon className="shrink-0" />
         </ButtonLink>
       </div>
     </div>

@@ -69,7 +69,7 @@ export function SiteFooter({ edition }: { edition: Edition }) {
           <p>© {new Date().getFullYear()} {site.name}. Powered by Techstars.</p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             <Link href="/cookie-policy" className="hover:text-paper">
-              Cookie policy
+              Privacy e cookie
             </Link>
             <CookiePreferencesButton className="hover:text-paper" />
             <span>{edition.venue}</span>

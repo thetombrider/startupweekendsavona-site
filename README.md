@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000).
 4. Output: Next.js default
 5. Add the custom domain `startupweekendsavona.com`
 
-Optional env: none required. Ticket, brochure and map URLs live in `lib/content.ts`.
+Set `BREVO_API_KEY` in the Vercel environment before deployment. See [Brevo ticket discount](docs/brevo-ticket-interest.md).
 
 ## Pages
 

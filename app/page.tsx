@@ -34,18 +34,6 @@ const eventJsonLd = {
     url: site.organizerUrl,
     email: site.email,
   },
-  offers: (edition2026.tickets ?? [])
-    .filter((tier) => !tier.hiddenUntilStart)
-    .map((tier) => ({
-      "@type": "Offer",
-      name: tier.name,
-      price: tier.price,
-      priceCurrency: "EUR",
-      availability: "https://schema.org/LimitedAvailability",
-      validFrom: tier.startAt,
-      validThrough: tier.endAt,
-      url: edition2026.ticketUrl,
-    })),
 };
 
 export default function Home() {

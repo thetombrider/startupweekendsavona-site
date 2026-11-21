@@ -6,7 +6,7 @@ import { pastEditions, site } from "@/lib/content";
 import type { Edition } from "@/lib/types";
 import { Logo } from "./logo";
 import { ArrowIcon, ButtonLink } from "./ui";
-import { TICKET_EVENT } from "@/lib/tickets";
+import { TICKET_DISCOUNT_SHORT_LABEL, TICKET_INTEREST_HREF } from "@/lib/ticket-interest";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader({
@@ -46,8 +46,8 @@ export function SiteHeader({
   ];
 
   const onLight = overlay && !scrolled && !open;
-  const ctaHref = edition.isCurrent ? edition.ticketUrl! : "/";
-  const ctaLabel = edition.isCurrent ? "Biglietti" : "Edizione 2026";
+  const ctaHref = edition.isCurrent ? TICKET_INTEREST_HREF : "/";
+  const ctaLabel = edition.isCurrent ? TICKET_DISCOUNT_SHORT_LABEL : "Edizione 2026";
 
   return (
     <header
@@ -125,13 +125,17 @@ export function SiteHeader({
           <ButtonLink
             href={ctaHref}
             variant="accent"
-            className="hidden !px-5 !py-2 sm:inline-flex"
-            external={edition.isCurrent}
-            trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
+            className="min-h-10 shrink-0 whitespace-nowrap !px-3 !py-1.5 !text-xs !leading-tight !text-ink lg:min-h-0 lg:!px-4 lg:!py-2 lg:!text-sm"
+            trackEvent={edition.isCurrent ? "ticket-interest-link" : undefined}
             trackPosition="header"
           >
-            {ctaLabel}
-            <ArrowIcon />
+            {edition.isCurrent ? (
+              <>
+                <span className="lg:hidden">Compra −10%</span>
+                <span className="hidden lg:inline">{ctaLabel}</span>
+              </>
+            ) : ctaLabel}
+            <ArrowIcon className="hidden shrink-0 lg:block" />
           </ButtonLink>
           <button
             className={cn(
@@ -191,16 +195,16 @@ export function SiteHeader({
                 Edizione {item.year}
               </Link>
             ))}
-            <ButtonLink
+            <a
               href={ctaHref}
-              variant="accent"
-              className="mt-2"
-              external={edition.isCurrent}
-              trackEvent={edition.isCurrent ? TICKET_EVENT : undefined}
-              trackPosition="mobile-menu"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-blue px-6 py-3 text-sm font-semibold tracking-wide text-ink hover:bg-blue-deep"
+              data-umami-event={edition.isCurrent ? "ticket-interest-link" : undefined}
+              data-umami-event-position="mobile-menu"
             >
               {ctaLabel}
-            </ButtonLink>
+              <ArrowIcon />
+            </a>
             <p className="text-xs text-white/40">{site.email}</p>
           </div>
         </div>

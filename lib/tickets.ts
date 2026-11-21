@@ -1,7 +1,5 @@
 import type { TicketTier } from "./types";
 
-export const TICKET_EVENT = "ticket-click";
-
 export type TierStatus = "past" | "active" | "upcoming";
 
 export type TierView = TicketTier & { status: TierStatus };
