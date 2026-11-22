@@ -437,9 +437,9 @@ export const edition2026: Edition = {
       image: "/images/people/lato.jpg",
     },
     {
-      name: "Pietro Mondini",
-      role: "CEO @ Vesper Holding",
-      image: "/images/people/mondini.jpg",
+      name: "Monica Nolo",
+      role: "Direttrice Generale @ Ligurcapital",
+      image: "/images/people/nolo.jpg",
     },
     {
       name: "Alberto Clavarino",
