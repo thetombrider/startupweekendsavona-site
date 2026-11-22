@@ -451,6 +451,11 @@ export const edition2026: Edition = {
       role: "CEO @ Rainmakers",
       image: "/images/people/inguscio.jpg",
     },
+    {
+      name: "Arianna Attard",
+      role: "Innovation Program Manager @ TEF Bridge Politecnico di Milano",
+      image: "/images/people/attard.jpg",
+    },
   ],
   mentors: [
     {
