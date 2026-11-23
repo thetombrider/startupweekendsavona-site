@@ -301,7 +301,10 @@ const agenda2025: AgendaDay[] = agenda2026.map((day, i) => ({
     day.id === "ven"
       ? day.items.flatMap((item) =>
           item.time === "21:30"
-            ? [item, { time: "21:40", title: "Kick-off speech by Pancrazio Auteri" }]
+            ? [
+                item,
+                { time: "21:40", title: "Kick-off speech by Pancrazio Auteri" },
+              ]
             : [item],
         )
       : day.items.filter((item) => item.title !== "Workshop - ABREMAR"),
